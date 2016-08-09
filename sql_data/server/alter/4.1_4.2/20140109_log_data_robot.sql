@@ -1,0 +1,1 @@
+alter table `log_data_robot` add column `cost_type` int(11) NOT NULL COMMENT '剩余' after `left_cost`;

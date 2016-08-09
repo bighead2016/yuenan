@@ -1,0 +1,1 @@
+alter table `game_fund` modify column `fund` blob NOT NULL COMMENT '基金信息';

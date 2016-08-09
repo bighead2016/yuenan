@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# Copyright (C) Cai Wenjian <caiwenjian@yahoo.com.cn>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# all functions
+trim() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}"
+
+  echo ${*}
+}
+
+isset() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}" 
+
+  [[ ! -z $(trim "${1}") ]] && return 0 || return 1
+}
+
+log() {
+  local totalArgs="${#}"
+  (( ${totalArgs} == 0 )) && throw -m "Expected at least 1 argument be defined" -f "${FUNCNAME}"
+
+  # do it
+  printf "[%s] %s\n" "$(date +'%F %H:%M:%S')" "$*"
+}
+
+throw() {
+  _args=$(getopt -q -o m:f: -l msg:,func: -- "${@}")
+  (( ${?} != 0 )) && throw -m "Invalid argument '${*}'" -f "${FUNCNAME}"
+  eval set -- "${_args}"
+  while true
+  do
+    [[ -z "${1}" ]] && break
+    case "${1}" in
+      -m|--msg) local msg="${2}"; shift 2;;
+      -f|--func) local func="${2}"; shift 2;;
+      --) shift;;
+      *) throw -m "Invalid argument '${*}'" -f "${FUNCNAME}";;
+    esac
+  done
+
+  isset "${msg}" || throw -m "The '-m, --msg msg' option must be defined" -f "${FUNCNAME}"
+  isset "${func}" || func="${FUNCNAME}"
+  printf "ERROR: 未捕获的异常\n" >&2
+  printf "Message: ${msg}\n" >&2
+  printf "Stack trace:\n" >&2
+  printf "  thrown in '%s' at function '%s()'\n\n" $(basename "${0}") "${func}" >&2
+  exit 1
+}
+
+file_exists() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}"
+
+  [[ -e "${1}" ]] && return 0 || return 1
+}
+
+is_file() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}" 
+
+  [[ -f "${1}" ]] && return 0 || return 1
+}
+
+is_dir() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}" 
+
+  [[ -d "${1}" ]] && return 0 || return 1
+}
+
+is_integer() {
+  local totalArgs="${#}"
+  (( ${totalArgs} != 1 )) && throw -m "Expected 1 argument be defined" -f "${FUNCNAME}" 
+
+  printf "%d" "${1}" >/dev/null 2>&1
+  (( ${?} == 0 )) && return 0 || return 1
+}
+

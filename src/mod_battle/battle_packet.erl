@@ -1,0 +1,80 @@
+%% Author: php
+%% Created:
+%% Description: TODO: Add description to battle_packet
+-module(battle_packet).
+
+%%
+%% Include files
+%%
+-include("../include/const.common.hrl").
+-include("../include/const.protocol.hrl").
+%%
+%% Exported Functions
+%%
+-export([packet_format/1]).
+%%
+%% API Functions
+%%
+%% *必须实现方法
+%% 消息号与消息格式一一对应
+packet_format(?MSG_ID_BATTLE_CS_START) ->
+	?MSG_FORMAT_BATTLE_CS_START;
+packet_format(?MSG_ID_BATTLE_SC_OVER) ->
+	?MSG_FORMAT_BATTLE_SC_OVER;
+packet_format(?MSG_ID_BATTLE_SC_STOP) ->
+	?MSG_FORMAT_BATTLE_SC_STOP;
+packet_format(?MSG_ID_BATTLE_SC_START2) ->
+	?MSG_FORMAT_BATTLE_SC_START2;
+packet_format(?MSG_ID_BATTLE_UNITS_GROUP) ->
+	?MSG_FORMAT_BATTLE_UNITS_GROUP;
+packet_format(?MSG_ID_BATTLE_UNIT_PLAYER_GROUP) ->
+	?MSG_FORMAT_BATTLE_UNIT_PLAYER_GROUP;
+packet_format(?MSG_ID_BATTLE_UNIT_PARTNER_GROUP) ->
+	?MSG_FORMAT_BATTLE_UNIT_PARTNER_GROUP;
+packet_format(?MSG_ID_BATTLE_UNIT_MONSTER_GROUP) ->
+	?MSG_FORMAT_BATTLE_UNIT_MONSTER_GROUP;
+packet_format(?MSG_ID_BATTLE_SC_SEQ) ->
+	?MSG_FORMAT_BATTLE_SC_SEQ;
+packet_format(?MSG_ID_BATTLE_SC_HORSE_SKILL) ->
+	?MSG_FORMAT_BATTLE_SC_HORSE_SKILL;
+packet_format(?MSG_ID_BATTLE_CS_OPERATE) ->
+	?MSG_FORMAT_BATTLE_CS_OPERATE;
+packet_format(?MSG_ID_BATTLE_SC_OPERATE_NOTICE) ->
+	?MSG_FORMAT_BATTLE_SC_OPERATE_NOTICE;
+packet_format(?MSG_ID_BATTLE_CS_AUTO) ->
+	?MSG_FORMAT_BATTLE_CS_AUTO;
+packet_format(?MSG_ID_BATTLE_SC_CMD_DATA) ->
+	?MSG_FORMAT_BATTLE_SC_CMD_DATA;
+packet_format(?MSG_ID_BATTLE_GROUP_CMD_DATA) ->
+	?MSG_FORMAT_BATTLE_GROUP_CMD_DATA;
+packet_format(?MSG_ID_BATTLE_SC_REFRESH_BOUT) ->
+	?MSG_FORMAT_BATTLE_SC_REFRESH_BOUT;
+packet_format(?MSG_ID_BATTLE_CS_ASK_PK) ->
+	?MSG_FORMAT_BATTLE_CS_ASK_PK;
+packet_format(?MSG_ID_BATTLE_SC_ASK_PK) ->
+	?MSG_FORMAT_BATTLE_SC_ASK_PK;
+packet_format(?MSG_ID_BATTLE_CS_ANSWER_PK) ->
+	?MSG_FORMAT_BATTLE_CS_ANSWER_PK;
+packet_format(?MSG_ID_BATTLE_SC_ANSWER_PK) ->
+	?MSG_FORMAT_BATTLE_SC_ANSWER_PK;
+packet_format(?MSG_ID_BATTLE_CS_REPORT_DATA) ->
+	?MSG_FORMAT_BATTLE_CS_REPORT_DATA;
+packet_format(?MSG_ID_BATTLE_SC_REPORT_DATA) ->
+	?MSG_FORMAT_BATTLE_SC_REPORT_DATA;
+packet_format(?MSG_ID_BATTLE_CS_START_COPY_TEST) ->
+	?MSG_FORMAT_BATTLE_CS_START_COPY_TEST;
+packet_format(?MSG_ID_BATTLE_SC_SKIP) ->
+	?MSG_FORMAT_BATTLE_SC_SKIP;
+packet_format(?MSG_ID_BATTLE_CS_REQ_REPORT_MULTI) ->
+	?MSG_FORMAT_BATTLE_CS_REQ_REPORT_MULTI;
+packet_format(?MSG_ID_BATTLE_SC_SKIP_INFO) ->
+	?MSG_FORMAT_BATTLE_SC_SKIP_INFO;
+packet_format(?MSG_ID_BATTLE_CS_REPORT_LIST) ->
+	?MSG_FORMAT_BATTLE_CS_REPORT_LIST;
+packet_format(?MSG_ID_BATTLE_SC_REPORT_LIST) ->
+	?MSG_FORMAT_BATTLE_SC_REPORT_LIST;
+packet_format(MsgId) ->
+	?MSG_ERROR("~p~n", [MsgId]).
+%%
+%% Local Functions
+%%

@@ -1,0 +1,28 @@
+-record(rec_invasion, {
+	id, 	%<<"id">>, 
+	mode, 	%<<"方式">>, 
+	lv, 	%<<"等級">>, 
+	module, 	%<<"模組ID">>, 
+	times, 	%<<"每天次數">>, 
+	amount, 	%<<"人數上限">>, 
+	duration, 	%<<"時長">>, 
+	map_id, 	%<<"守關地圖ID">>, 
+	start_cd, 	%<<"開始時間">>, 
+	wave, 	%<<"怪物波數">>, 
+	npc_x, 	%<<"npc_x">>, 
+	npc_y, 	%<<"npc_y">>, 
+	target_id, 	%<<"目標點怪物id">>, 
+	target_hp, 	%<<"目標點血量">>, 
+	delta_hp, 	%<<"血量變化量">>, 
+	enlarge_hp, 	%<<"BOSS怪加倍掉血">>, 
+	monster, 	%<<"第一路怪物">>, 
+	other, 	%<<"第二路怪物">>, 
+	another, 	%<<"第三路怪物">>, 
+	born, 	%<<"出生點">>, 
+	turn, 	%<<"轉捩點">>, 
+	walk, 	%<<"行走">>, 
+	halt, 	%<<"停留時間">>, 
+	next, 	%<<"下一關">>, 
+	skip 	%<<"跳轉點">> 
+}).
+

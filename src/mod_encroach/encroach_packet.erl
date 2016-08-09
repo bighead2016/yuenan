@@ -1,0 +1,72 @@
+%% Author: php
+%% Created:
+%% Description: TODO: Add description to encroach_packet
+-module(encroach_packet).
+
+%%
+%% Include files
+%%
+-include("../include/const.common.hrl").
+-include("../include/const.protocol.hrl").
+%%
+%% Exported Functions
+%%
+-export([packet_format/1]).
+%%
+%% API Functions
+%%
+%% *必须实现方法
+%% 消息号与消息格式一一对应
+packet_format(?MSG_ID_ENCROACH_CS_INIT_INFO) ->
+	?MSG_FORMAT_ENCROACH_CS_INIT_INFO;
+packet_format(?MSG_ID_ENCROACH_SC_INIT_INFO) ->
+	?MSG_FORMAT_ENCROACH_SC_INIT_INFO;
+packet_format(?MSG_ID_ENCROACH_CS_MOVE) ->
+	?MSG_FORMAT_ENCROACH_CS_MOVE;
+packet_format(?MSG_ID_ENCROACH_SC_MOVE) ->
+	?MSG_FORMAT_ENCROACH_SC_MOVE;
+packet_format(?MSG_ID_ENCROACH_SC_REST_POINT) ->
+	?MSG_FORMAT_ENCROACH_SC_REST_POINT;
+packet_format(?MSG_ID_ENCROACH_SC_EVENT_REWARD) ->
+	?MSG_FORMAT_ENCROACH_SC_EVENT_REWARD;
+packet_format(?MSG_ID_ENCROACH_CS_RANK_INFO) ->
+	?MSG_FORMAT_ENCROACH_CS_RANK_INFO;
+packet_format(?MSG_ID_ENCROACH_SC_RANK_INFO) ->
+	?MSG_FORMAT_ENCROACH_SC_RANK_INFO;
+packet_format(?MSG_ID_ENCROACH_CS_RESET) ->
+	?MSG_FORMAT_ENCROACH_CS_RESET;
+packet_format(?MSG_ID_ENCROACH_SC_RESET) ->
+	?MSG_FORMAT_ENCROACH_SC_RESET;
+packet_format(?MSG_ID_ENCROACH_SC_SETTLEMENT) ->
+	?MSG_FORMAT_ENCROACH_SC_SETTLEMENT;
+packet_format(?MSG_ID_ENCROACH_CS_BUY_POINT) ->
+	?MSG_FORMAT_ENCROACH_CS_BUY_POINT;
+packet_format(?MSG_ID_ENCROACH_SC_BUY_POINT) ->
+	?MSG_FORMAT_ENCROACH_SC_BUY_POINT;
+packet_format(?MSG_ID_ENCROACH_SC_LOTTERY_TIMES) ->
+	?MSG_FORMAT_ENCROACH_SC_LOTTERY_TIMES;
+packet_format(?MSG_ID_ENCROACH_CS_LOTTERY) ->
+	?MSG_FORMAT_ENCROACH_CS_LOTTERY;
+packet_format(?MSG_ID_ENCROACH_SC_TARGET) ->
+	?MSG_FORMAT_ENCROACH_SC_TARGET;
+packet_format(?MSG_ID_ENCROACH_CS_SEND) ->
+	?MSG_FORMAT_ENCROACH_CS_SEND;
+packet_format(?MSG_ID_ENCROACH_SC_REPLY) ->
+	?MSG_FORMAT_ENCROACH_SC_REPLY;
+packet_format(?MSG_ID_ENCROACH_CS_AWARD_GOODS) ->
+	?MSG_FORMAT_ENCROACH_CS_AWARD_GOODS;
+packet_format(?MSG_ID_ENCROACH_SC_AWARD_GOODS) ->
+	?MSG_FORMAT_ENCROACH_SC_AWARD_GOODS;
+packet_format(?MSG_ID_ENCROACH_CS_CHK_CAN_MOV) ->
+	?MSG_FORMAT_ENCROACH_CS_CHK_CAN_MOV;
+packet_format(?MSG_ID_ENCROACH_SC_CHK_CAN_MOV) ->
+	?MSG_FORMAT_ENCROACH_SC_CHK_CAN_MOV;
+packet_format(?MSG_ID_ENCROACH_CS_REST_TIMES) ->
+	?MSG_FORMAT_ENCROACH_CS_REST_TIMES;
+packet_format(?MSG_ID_ENCROACH_SC_REST_TIMES) ->
+	?MSG_FORMAT_ENCROACH_SC_REST_TIMES;
+packet_format(MsgId) ->
+	?MSG_ERROR("~p~n", [MsgId]).
+%%
+%% Local Functions
+%%

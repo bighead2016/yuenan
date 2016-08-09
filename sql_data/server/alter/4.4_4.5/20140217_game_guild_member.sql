@@ -1,0 +1,1 @@
+ALTER TABLE `game_guild_member`     ADD COLUMN `pvp_score` INT DEFAULT '0' NULL COMMENT '军团功德' AFTER `party_flag2`;

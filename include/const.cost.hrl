@@ -1,0 +1,347 @@
+%% 定义的常量名称不能相同
+
+-define(CONST_COST_STONE_COMPOSE,                   0).% 宝石：合成 
+-define(CONST_COST_PLAYER_DEPOSIT,                  100).% 人物：充值 
+-define(CONST_COST_PLAYER_GM,                       101).% 人物：GM命令 
+-define(CONST_COST_PLAYER_BUY_SP,                   102).% 人物：购买体力 
+-define(CONST_COST_PLAYER_OFFLINE_SP,               103).% 人物：奖励离线体力 
+-define(CONST_COST_PLAYER_CULTI_UPGRATE,            104).% 修为：升级 
+-define(CONST_COST_PLAYER_ONLINE_SP,                105).% 人物：奖励在线体力 
+-define(CONST_COST_PLAYER_USE_GOODS,                106).% 人物：使用道具 
+-define(CONST_COST_PLAYER_VIP,                      107).% 人物：VIP 
+-define(CONST_COST_PLAYER_COMBINE_GIVE,             108).% 人物：合服奖励 
+
+-define(CONST_COST_PLAYER_FUSION,                   109).% 人物：时装合成 
+-define(CONST_COST_PLAYER_NEWBIE,                   110).% 人物：新人流程 
+-define(CONST_COST_PLAYER_DEPOSIT_OLD,              111).% 体验服送元宝 
+-define(CONST_COST_PLAYER_CHANGE_SERVER,            112).% 老服移民新服，资产转移发放元宝 
+-define(CONST_COST_GIFT_TYPE_NEWBIE,                151).% 礼包：新手礼包 
+-define(CONST_COST_GIFT_TYPE_COLLECT,               152).% 礼包：收藏礼包 
+-define(CONST_COST_GIFT_TYPE_PHONE,                 153).% 礼包：手机绑定礼包 
+-define(CONST_COST_GIFT_TYPE_LOGIN_DAIL,            154).% 礼包：每日登陆礼包 
+-define(CONST_COST_GIFT_TYPE_SUMMER,                155).% 礼包：夏日礼包 
+-define(CONST_COST_GIFT_TYPE_ORDER,                 156).% 礼包：预约礼包 
+
+-define(CONST_COST_GIFT_TYPE_MAIDEN,                157).% 礼包：首冲礼包 
+-define(CONST_COST_GIFT_TYPE_MEDIA_1,               158).% 礼包：媒体礼包(07073|20) 
+-define(CONST_COST_GIFT_TYPE_MEDIA_2,               159).% 礼包：媒体礼包(07073|30) 
+-define(CONST_COST_GIFT_TYPE_MEDIA_3,               160).% 礼包：媒体礼包(07073|50) 
+-define(CONST_COST_GIFT_TYPE_MEDIA_4,               161).% 礼包：媒体礼包(265G|50) 
+-define(CONST_COST_GIFT_TYPE_MEDIA_5,               162).% 礼包：媒体礼包(百度|20) 
+-define(CONST_COST_GIFT_TYPE_SUMMER_1,              171).% 礼包：夏末礼包188 
+-define(CONST_COST_GIFT_TYPE_SUMMER_2,              172).% 礼包：夏末礼包888 
+-define(CONST_COST_GIFT_TYPE_SUMMER_3,              173).% 礼包：夏末礼包1888 
+-define(CONST_COST_GIFT_TYPE_SUMMER_4,              174).% 礼包：夏末礼包5888 
+
+-define(CONST_COST_GIFT_TYPE_SUMMER_5,              175).% 礼包：夏末礼包10888 
+-define(CONST_COST_GIFT_TYPE_SUMMER_6,              176).% 礼包：夏末礼包88888 
+-define(CONST_COST_GIFT_TYPE_MID_AUTUNM,            181).% 礼包：中秋礼包 
+-define(CONST_COST_GIFT_TYPE_360_7,                 182).% 礼包：360礼包7级 
+-define(CONST_COST_GIFT_TYPE_360_8,                 183).% 礼包：360礼包8级 
+-define(CONST_COST_GIFT_TYPE_360_9,                 184).% 礼包：360礼包9级 
+-define(CONST_COST_GIFT_TYPE_360_15,                185).% 礼包：360礼包15级 
+-define(CONST_COST_GIFT_TYPE_360_6,                 186).% 礼包：360礼包6级 
+-define(CONST_COST_GIFT_TYPE_WEIXIN,                187).% 礼包：微信礼包 
+-define(CONST_COST_GIT_TYPE_SHOP,                   188).% 礼包：积分商城 
+
+-define(CONST_COST_BAG_ENLARGE_CONTAINER,           201).% 背包：扩展 
+-define(CONST_COST_DEPOT_ENLARGE_CONTAINER,         202).% 仓库：扩展 
+-define(CONST_COST_GOODS_REMOTE_DEPOT,              203).% 物品：打开远程仓库 
+-define(CONST_COST_GOODS_REMOTE_SHOP,               204).% 物品：打开远程道具店 
+-define(CONST_COST_GOODS_USED,                      205).% 物品：使用了道具 
+-define(CONST_COST_GOODS_PACKET_GET,                206).% 物品：获得礼包道具 
+-define(CONST_COST_GOODS_BOX_GET,                   207).% 物品：获得宝箱道具 
+-define(CONST_COST_GOODS_DROP_BAG,                  208).% 背包：丢弃 
+-define(CONST_COST_GOODS_DROP_DEPOT,                209).% 仓库：丢弃 
+-define(CONST_COST_GOODS_DROP_TMP_BAG,              210).% 临时背包：过期丢弃 
+
+-define(CONST_COST_GOODS_PARTNER_GET,               211).% 获得物品武将卡 
+-define(CONST_COST_BATTLE_REWARD,                   301).% 战斗：奖励 
+-define(CONST_COST_BATTLE_SKIP,                     302).% 战斗：跳过战斗 
+-define(CONST_COST_TRAIN_STREN,                     402).% 培养：进阶培养 
+-define(CONST_COST_TRAIN_STREN_2,                   404).% 培养：高级培养 
+-define(CONST_COST_TRAIN_STREN_3,                   406).% 培养：白金培养 
+-define(CONST_COST_TRAIN_STREN_4,                   408).% 培养：至尊培养 
+-define(CONST_COST_PARTNER_RECRUIT,                 410).% 武将：铜钱招募 
+-define(CONST_COST_PARTNER_RECRUIT_2,               412).% 武将：元宝喜好品招募 
+-define(CONST_COST_PARTNER_RECRUIT_3,               414).% 武将：解雇再招募 
+
+-define(CONST_COST_PARTNER_INHERIT,                 416).% 武将：武将继承 
+-define(CONST_COST_PARTNER_EXT_BAG,                 418).% 武将：扩展招贤位 
+-define(CONST_COST_PARTNER_ADD_LOOK_FOR,            420).% 武将：增加寻访次数 
+-define(CONST_COST_PARTNER_CLEAR_CD,                422).% 武将：清除寻访时间 
+-define(CONST_COST_PARTNER_LOOKFOR,                 424).% 武将：寻访 
+-define(CONST_COST_UPGRADE_HOME,                    701).% 封邑：封邑升级 
+-define(CONST_COST_PRESS_GIRL,                      702).% 封邑：侍女压榨 
+-define(CONST_COST_DRAW_GIRL,                       703).% 封邑：侍女抽取 
+-define(CONST_COST_PLANT_REWARD,                    705).% 封邑：土地种植收获 
+-define(CONST_COST_POSITION_REWARD,                 706).% 封邑：官衔领取俸禄 
+
+-define(CONST_COST_LOOSEN_REWARD,                   709).% 封邑：土地松土奖励 
+-define(CONST_COST_RECRUIT_GIRL,                    710).% 封邑：招募侍女 
+-define(CONST_COST_INCREASE_GRAB_TIMES,             711).% 封邑：增加抓捕次数 
+-define(CONST_COST_HOME_GET_GIFT,                   716).% 封邑：领取封邑礼包 
+-define(CONST_COST_CHAT_SPEAKER,                    801).% 聊天：元宝喇叭 
+-define(CONST_COST_MAIL_REWARD_CASH,                901).% 邮件：获得元宝 
+-define(CONST_COST_MAIL_REWARD_BCASH,               902).% 邮件：获得绑定元宝 
+-define(CONST_COST_MAIL_REWARD_GOLD,                903).% 邮件：获得铜钱 
+-define(CONST_COST_ABILITY_UPGRADE,                 1101).% 奇门：奇门升级 
+-define(CONST_COST_ABILITY_EXT,                     1102).% 奇门：启动八门 
+
+-define(CONST_COST_CAMP_UPGRADE,                    1111).% 阵法：升级 
+-define(CONST_COST_FURNACE_STREN_PART,              1201).% 作坊：部位强化 
+-define(CONST_COST_FURNACE_OPEN_QUEUE,              1202).% 作坊：开启强化队列 
+-define(CONST_COST_FURNACE_CLEAR_FOREVER,           1203).% 作坊：永久清除强化冷却 
+-define(CONST_COST_FURNACE_CLEAR_CD,                1204).% 作坊：清除强化冷却 
+-define(CONST_COST_FURNACE_FORGE_DIRECT,            1206).% 作坊：一键元宝锻造 
+-define(CONST_COST_FURNACE_SOUL,                    1209).% 作坊：刻印 
+-define(CONST_COST_FURNACE_MERGE,                   1210).% 作坊：道具合成 
+-define(CONST_COST_FURNACE_FORGE_COST,              1211).% 作坊：普通锻造消耗 
+-define(CONST_COST_COPY_BATTLE_OVER,                1301).% 普通战场：战斗奖励 
+
+-define(CONST_COST_COPY_RESET_TIMES,                1302).% 英雄战场：重置次数 
+-define(CONST_COST_COPY_GET_VIP_REWARD,             1303).% 英雄战场：VIP翻牌 
+-define(CONST_COST_COPY_ELITE_AWARD,                1304).% 英雄战场：战场奖励 
+-define(CONST_COST_COPY_ELITE_QUICK,                1305).% 英雄战场：快速完成 
+-define(CONST_COST_COPY_RAID_AWARD,                 1306).% 普通战场：扫荡奖励 
+-define(CONST_COST_COPY_RAID_QUICK,                 1307).% 普通战场：扫荡快速完成 
+-define(CONST_COST_COPY_SP,                         1308).% 普通战场：消耗体力 
+-define(CONST_COST_COPY_ELITE_RAID_GET,             1309).% 英雄战场：扫荡奖励 
+-define(CONST_COST_COPY_VIP_CARD_GET,               1310).% 普通战场：VIP翻牌 
+-define(CONST_COST_GUILD_CREATE,                    1501).% 军团：创建军团 
+
+-define(CONST_COST_GUILD_RESET,                     1503).% 军团：清除加入限制 
+-define(CONST_COST_GUILD_DONATE,                    1504).% 军团：军团捐献 
+-define(CONST_COST_GUILD_YTS,                       1506).% 军团：军团冶铁所 
+-define(CONST_COST_GUILD_BK,                        1507).% 军团：军团宝库 
+-define(CONST_COST_GUILD_APPLY,                     1508).% 军团：快速邀请 
+-define(CONST_COST_MARKET_SALE,                     1702).% 市集：寄售物品保管费(扣除铜钱) 
+-define(CONST_COST_MARKET_RETURN,                   1703).% 市集：寄售失败返还保管费 
+-define(CONST_COST_MARKET_ONCE,                     1704).% 市集：浏览界面一口价 
+-define(CONST_COST_MARKET_ONCE_REWARD,              1705).% 市集：浏览界面一口价竞拍失败返回元宝 
+-define(CONST_COST_MARKET_ONCE_2,                   1706).% 市集：竞拍界面一口价 
+
+-define(CONST_COST_MARKET_ADD,                      1707).% 市集：卖出获得元宝 
+-define(CONST_COST_MARKET_NORMAL_SALE,              1708).% 市集：浏览界面竞拍 
+-define(CONST_COST_GET_GOODS,                       1709).% 市集: 竞拍得到物品 
+-define(CONST_COST_MARKET_NORMAL_SALE_2,            1710).% 市集：竞拍界面竞拍 
+-define(CONST_COST_MALL_GET,                        1801).% 商城：获取道具 
+-define(CONST_COST_MALL_COST,                       1802).% 商城：购买物品--消耗 
+-define(CONST_COST_TASK_REWARD,                     2001).% 任务：任务奖励 
+-define(CONST_COST_TASK_AUTO_FINISH,                2003).% 任务：自动完成 
+-define(CONST_COST_TASK_REWARD_MAIN,                2010).% 任务：主线任务奖励 
+-define(CONST_COST_TASK_REWARD_BRANCH,              2011).% 任务：支线任务奖励 
+
+-define(CONST_COST_TASK_REWARD_DAILY,               2012).% 任务：日常任务奖励 
+-define(CONST_COST_TASK_REWARD_GUILD,               2013).% 任务：军团任务奖励 
+-define(CONST_COST_TASK_REWARD_POSITION,            2014).% 任务：官衔任务奖励 
+-define(CONST_COST_TASK_SUBMIT_COST,                2015).% 任务：提交道具--消耗 
+-define(CONST_COST_TASK_REWARD_EVERYDAY,            2016).% 任务：每日任务奖励 
+-define(CONST_COST_RESOURCE_REWARD_RUNE,            2101).% 收夺：获得铜钱 
+-define(CONST_COST_RESOURCE_RUNE,                   2102).% 收夺：消耗元宝 
+-define(CONST_COST_OPEN_CHEST,                      2103).% 收夺：开启宝箱 
+-define(CONST_COST_RESOURCE_PRAY,                   2104).% 巡城：消耗 
+-define(CONST_COST_RESOURCE_PRAY_REWARD,            2106).% 巡城：奖励 
+
+-define(CONST_COST_SINGLE_ARENA_CLEAR_CD,           2202).% 一骑讨：清除冷却 
+-define(CONST_COST_SINGLE_ARENA_BUY_TIMES,          2204).% 一骑讨：购买次数 
+-define(CONST_COST_SINGLE_ARENA_DAILY,              2208).% 一骑讨：每日领取 
+-define(CONST_COST_SINGLE_ARENA_BATTLE,             2210).% 一骑讨：战斗结算 
+-define(CONST_COST_SINGLE_ARENA_WIN,                2212).% 一骑讨：连胜奖励 
+-define(CONST_COST_SINGLE_ARENA_RANK,               2214).% 一骑讨：排名奖 
+-define(CONST_COST_SINGLE_ARENA_EXCHANGE,           2215).% 一骑讨：积分兑换 
+-define(CONST_COST_SINGLE_ARENA_DAILY_TARGET,       2216).% 一骑讨：每日目标奖励 
+-define(CONST_COST_LOTTERY_DRAW,                    2302).% 淘宝：淘宝 
+-define(CONST_COST_LOTTERY_CLEAR_CD,                2303).% 奖池：清cd 
+
+-define(CONST_COST_LOTTERY_DO_LOTTERY,              2304).% 奖池：抽奖 
+-define(CONST_COST_MIND_READ_ONE,                   2402).% 祈天：地煞 
+-define(CONST_COST_MIND_READ_TWO,                   2403).% 祈天：天罡 
+-define(CONST_COST_MIND_READ_THREE,                 2404).% 祈天：星宿 
+-define(CONST_COST_MIND_READ_FOUR,                  2405).% 祈天：元辰 
+-define(CONST_COST_MIND_READ_CASH_THREE,            2406).% 祈天：星辰祈天 
+-define(CONST_COST_MIND_READ_CASH_FOUR,             2407).% 祈天：元辰祈天 
+-define(CONST_COST_MIND_EXTEND_BAG,                 2408).% 祈天：扩展背包 
+-define(CONST_COST_SKILL_UPGRATE,                   2602).% 武技：升级 
+-define(CONST_COST_SKILL_WASH,                      2604).% 武技：重置 
+
+-define(CONST_COST_SHOP_SOLD,                       2701).% 道具店：出售道具 
+-define(CONST_COST_SHOP_BOUGHT,                     2702).% 道具店：购买道具 
+-define(CONST_COST_SHOP_REPURCHASE,                 2704).% 道具店：回购 
+-define(CONST_COST_GM_CHAT,                         2850).% GM：聊天频道 
+-define(CONST_COST_TOWER_SWEEP_REWARD,              2901).% 破阵：破阵在线扫荡奖励 
+-define(CONST_COST_TOWER_SWEEP_SPEED_UP,            2902).% 破阵：扫荡加速半小时 
+-define(CONST_COST_TOWER_SWEEP_ONCE,                2904).% 破阵：加速半小时出现立即完成 
+-define(CONST_COST_TOWER_SWEEP_1HOUR,               2906).% 破阵：扫荡加速1小时 
+-define(CONST_COST_TOWER_SWEEP_ONCE_2,              2908).% 破阵：加速1小时出现立即完成 
+-define(CONST_COST_TOWER_SWEEP_ONCE_3,              2910).% 破阵：立即完成扫荡 
+
+-define(CONST_COST_TOWER_VIP,                       2912).% 破阵：vip翻牌 
+-define(CONST_COST_TOWER_REFRESH,                   2914).% 破阵：重置 
+-define(CONST_COST_TOWER_LV_REWARD,                 2915).% 破阵：通关奖励 
+-define(CONST_COST_TOWER_QUICK_SWEEP,               2916).% 破阵：快速扫荡奖励 
+-define(CONST_COST_TOWER_OFFLINE_SWEEP,             2917).% 破阵：离线扫荡奖励 
+-define(CONST_COST_COMMERCE_FLUSH_OFFLINE,          3050).% 商路：离线刷新 
+-define(CONST_COST_COMMERCE_ESCORT_OVER,            3051).% 商路：完成护送 
+-define(CONST_COST_COMMERCE_ROB,                    3052).% 商路：打劫 
+-define(CONST_COST_COMMERCE_ROB_CD,                 3053).% 商路：清除打劫CD 
+-define(CONST_COST_COMMERCE_ROB_TIMES,              3054).% 商路：购买打劫次数 
+
+-define(CONST_COST_COMMERCE_REFRESH,                3055).% 商路：刷新品质 
+-define(CONST_COST_COMMERCE_ONE_REFRESH,            3056).% 商路：一键刷新 
+-define(CONST_COST_COMMERCE_SPEED_UP,               3057).% 商路：加速 
+-define(CONST_COST_COMMERCE_CARRY_OVER,             3058).% 商路：运送 
+-define(CONST_COST_COMMERCE_BUILD_MARKE,            3059).% 商路：建造市场 
+-define(CONST_COST_WELFARE_REWARD_GOLD,             3301).% 福利：奖励铜钱 
+-define(CONST_COST_WELFARE_REWARD_SP,               3302).% 福利：奖励体力 
+-define(CONST_COST_WELFARE_REWARD_CASH,             3303).% 福利：奖励礼券 
+-define(CONST_COST_WELFARE_REVIEW,                  3304).% 福利：补签消耗元宝 
+-define(CONST_COST_WELFARE_REWARD_MERITORIOUS,      3305).% 福利：奖励功勋 
+
+-define(CONST_COST_WELFARE_OVERTIME,                3306).% 福利：充值礼包过期补回 
+-define(CONST_COST_WELFARE_GIFT,                    3307).% 福利：充值礼包 
+-define(CONST_COST_WELFARE_DAILY_GIFT,              3308).% 福利：每日充值礼包 
+-define(CONST_COST_WLEFARE_BUY_FUND,                3309).% 福利：购买基金 
+-define(CONST_COST_WELFARE_DIVIDEND,                3310).% 福利：每天分红 
+-define(CONST_COST_BOSS_DOLL,                       3500).% 妖魔破：自动参战（替身娃娃） 
+-define(CONST_COST_BOSS_ENCOURAGE,                  3501).% 妖魔破：鼓舞 
+-define(CONST_COST_BOSS_REBORN,                     3502).% 妖魔破：浴火重生 
+-define(CONST_COST_BOSS_REVIVE,                     3503).% 妖魔破：复活 
+-define(CONST_COST_BOSS_REWARD_FIRST,               3504).% 妖魔破：首次攻击 
+
+-define(CONST_COST_BOSS_REWARD_HURT,                3505).% 妖魔破：战斗结算 
+-define(CONST_COST_BOSS_REWARD_RANK,                3506).% 妖魔破：伤害排名 
+-define(CONST_COST_BOSS_FLUSH_OFFLINE,              3507).% 妖魔破：刷新下线 
+-define(CONST_COST_BOSS_REWARD_LAST,                3508).% 妖魔破：最后一击 
+-define(CONST_COST_BOSS_BAD_REBORN,                 3509).% 妖魔破：浴火重生失败返还 
+-define(CONST_COST_BOSS_REWARD_MERITORIOUS,         3510).% 妖魔破：奖励功勋 
+-define(CONST_COST_BOSS_ROBOT,                      3511).% 妖魔破：机器人扣钱 
+-define(CONST_COST_BOSS_ROBOT_RETURN,               3512).% 妖魔破：返还 
+-define(CONST_COST_BOSS_ROBOT_REWARD,               3513).% 妖魔破：机器人奖励 
+-define(CONST_COST_SCHEDULE_REWARD_GOLD,            3701).% 课程表：奖励铜钱 
+
+-define(CONST_COST_SCHEDULE_REVIEW,                 3702).% 课程表：每日补签 
+-define(CONST_COST_SCHEDULE_REWARD,                 3703).% 课程表：奖励 
+-define(CONST_COST_RESOURCE_LOOKFOR,                3704).% 课程表：资源找回铜钱 
+-define(CONST_COST_RESOURCE_GOLD,                   3705).% 课程表：资源找回扣除铜钱 
+-define(CONST_COST_RESOURCE_CASH,                   3706).% 课程表：资源找回扣除元宝 
+-define(CONST_COST_GUIDE_REWARD,                    3801).% 新手引导：奖励铜钱 
+-define(CONST_COST_MCOPY_Q_REWARD,                  4101).% 团队战场：奇遇奖励 
+-define(CONST_COST_MCOPY_RESET_TIMES,               4102).% 团队战场：重置战场 
+-define(CONST_COST_MCOPY_VIP_REWARD,                4103).% 团队战场：VIP翻牌 
+-define(CONST_COST_MCOPY_REWARD,                    4105).% 团队战场：通关奖励 
+
+-define(CONST_COST_ARENA_PVP_BATTLE,                4402).% 战群雄：战斗奖励 
+-define(CONST_COST_ARENA_PVP_WEEK_GOLD,             4403).% 战群雄：每周铜钱奖励 
+-define(CONST_COST_ARENA_PVP_REWARD_WIN,            4404).% 战群雄：连胜奖励 
+-define(CONST_COST_ARENA_PVP_REWARD_RANK,           4405).% 战群雄：积分排名奖励 
+-define(CONST_COST_ARENA_PVP_WEEK_GOODS,            4406).% 战群雄：每周物品奖励 
+-define(CONST_COST_PRACTICE_CLEAR_CD,               4501).% 修炼：清除CD 
+-define(CONST_COST_PRACTICE_AUTO_CASH,              4502).% 修炼：替身参加花费 
+-define(CONST_COST_PRACTICE_RET_CASH,               4503).% 修炼：替身结束返还 
+-define(CONST_COST_PRACTICE_DOLL_EXP,               4504).% 修炼：离线替身经验奖励 
+-define(CONST_COST_WORLD_REWARD_KILL,               4601).% 乱天下：击杀奖 
+
+-define(CONST_COST_WORLD_REWARD_HURT,               4602).% 乱天下：伤害奖 
+-define(CONST_COST_WORLD_REWARD_GUILD,              4603).% 乱天下：军团奖 
+-define(CONST_COST_WORLD_SET_ROBOT,                 4604).% 乱天下：勾选替身 
+-define(CONST_COST_WORLD_CANCEL_ROBOT,              4605).% 乱天下：取消替身 
+-define(CONST_COST_WORLD_LEAVE_GUILD,               4606).% 乱天下：退出军团返回替身消耗 
+-define(CONST_COST_LOGIN_GIFT_CASH,                 4701).% 公测每日登陆赠送元宝 
+-define(CONST_COST_PARTY_REWARD,                    4801).% 军团宴会：宴会玩法 
+-define(CONST_COST_PARTY_AUTO,                      4802).% 军团宴会：自动参加宴会 
+-define(CONST_COST_PARTY_HOOK,                      4803).% 军团宴会：宴会挂机 
+-define(CONST_COST_PARTY_AUTO_CASH,                 4804).% 军团宴会：替身参加元宝花费 
+
+-define(CONST_COST_PARTY_AUTO_SP,                   4805).% 军团宴会：替身参加奖励体力 
+-define(CONST_COST_PARTY_LEAVE_GUILD,               4806).% 军团宴会：退出军团取消替身 
+-define(CONST_COST_HORSE_CLEAR_CD,                  4901).% 坐骑：快速进化 
+-define(CONST_COST_HORSE_LV_UP,                     4902).% 坐骑：培养 
+-define(CONST_COST_HORSE_ONE_KEY,                   4904).% 坐骑：一键升级 
+-define(CONST_COST_HORSE_GET,                       4905).% 坐骑：取出小马 
+-define(CONST_COST_HORSE_REFRESH,                   4906).% 坐骑：洗练 
+-define(CONST_COST_HORSE_SKILL_LV_UP,               4907).% 坐骑：技能升级 
+-define(CONST_COST_INVASION_CLEAR_CD,               5001).% 异名族：清除战斗冷却 
+-define(CONST_COST_INVASION_REWARD,                 5002).% 异名族：通关奖励 
+
+-define(CONST_COST_INVASION_CARD,                   5003).% 异名族：VIP翻牌 
+-define(CONST_COST_INVASION_DOLL_CASH,              5004).% 异民族：替身参加消耗元宝 
+-define(CONST_COST_INVASION_DOLL_MERITORIOUS,       5005).% 异民族：替身参加奖励功勋 
+-define(CONST_COST_INVASION_DOLL_GOLD,              5006).% 异民族：替身参加奖励铜钱 
+-define(CONST_COST_SPRING_REWARD_SP,                5101).% 温泉：奖励体力 
+-define(CONST_COST_SPRING_AUTO_SP,                  5102).% 温泉：自动参加奖励体力 
+-define(CONST_COST_SPRING_AUTO_CASH,                5103).% 温泉：自动参加元宝花费 
+-define(CONST_COST_COLLECT_SP,                      5201).% 采集：消耗体力 
+-define(CONST_COST_COLLECT_GET,                     5202).% 采集：获得物品 
+-define(CONST_COST_NEW_SERV_STORAGE,                5301).% 新服活动：存钱 
+
+-define(CONST_COST_NEW_SERV_DRAW,                   5302).% 新服活动：领取 
+-define(CONST_COST_NEW_SERV_ACHIVE_GOODS,           5303).% 新服活动：成就发放物品 
+-define(CONST_COST_NEW_SERV_DEPOSIT_RETURN,         5304).% 新服活动：充值返利 
+-define(CONST_COST_NEW_SERV_TURN,                   5305).% 新服活动：转盘 
+-define(CONST_COST_NEW_SERV_HERO_POWER,             5306).% 新服活动：英雄榜战力奖励 
+-define(CONST_COST_NEW_SERV_HERO_GUILD,             5307).% 新服活动：英雄榜军团奖励 
+-define(CONST_COST_NEW_SERV_HERO_TOWER,             5308).% 新服活动：英雄榜破阵奖励 
+-define(CONST_COST_NEW_SERV_P_E,                    5309).% 新服活动：英雄榜战力奖励 
+-define(CONST_COST_NEW_SERV_G_E,                    5310).% 新服活动：英雄榜军团奖励 
+-define(CONST_COST_NEW_SERV_T_E,                    5311).% 新服活动：英雄榜破阵奖励 
+
+-define(CONST_COST_RANK_REWARD_GOODS,               5401).% 排行榜：邮件奖励物品 
+-define(CONST_COST_CAMP_PVP_COPPER,                 5501).% 阵营战pvp奖励 
+-define(CONST_COST_CAMP_PVE_COPPER,                 5502).% 阵营战pve奖励 
+-define(CONST_COST_CAMP_PVP_AWARD,                  5503).% 阵营战奖励 
+-define(CONST_COST_CAMP_PVP_ENCOURAGE,              5504).% 阵营战 鼓舞 
+-define(CONST_COST_CAMP_PVP_BUY,                    5505).%  阵营战兑换 
+-define(CONST_COST_ACHIEVEMENT_GET,                 6001).% 成就：获得道具 
+-define(CONST_COST_WEAPON_REFRESH,                  7001).% 神兵：洗炼 
+-define(CONST_COST_WEAPON_CHESS_REWARD,             7002).% 神兵：双陆 
+-define(CONST_COST_WEAPON_QUENCH,                   7003).% 神兵：淬火 
+
+-define(CONST_COST_GUILD_PVP_CAMP_AWARD,            8001).% 军团战阵营奖励 
+-define(CONST_COST_GUILD_PVP_ENCOURAGE,             8002).% 军团战鼓舞话费 
+-define(CONST_COST_GUILD_PVP_CAR_ATT,               8003).% 军团战战车出击 
+-define(CONST_COST_GUILD_PVP_FIX_WALL,              8004).% 军团战修复城墙花费 
+-define(CONST_COST_GUILD_PVP_BRING_BACK,            8005).% 军团战浴火重生花费 
+-define(CONST_COST_GUILD_PVP_BUY,                   8006).% 军团战商店购买 
+-define(CONST_COST_GUN_CASH_AWARD,                  8010).% 滚服礼券 
+-define(CONST_COST_STONE_COMPOSE1,                  9001).% 宝石：合成 
+-define(CONST_COST_STONE_ADD_HOLE,                  9002).% 宝石：打孔 
+-define(CONST_COST_STONE_ADD_STONE,                 9003).% 宝石：镶嵌 
+
+-define(CONST_COST_STONE_CHANGE,                    9004).% 宝石：转换 
+-define(CONST_COST_TEST_SERVER_DAY_AWARD,           9005).% 体验服每日元宝赠送 
+-define(CONST_COST_TEAM_GOLD_INVITE,                9006).% 组队：元宝邀请 
+-define(CONST_COST_SNOW_GET_AWARD,                  9007).% 雪夜赏灯：消耗礼灯 
+-define(CONST_COST_MAIL_YUNYING,                    9008).% 运营活动邮件 
+-define(CONST_COST_SHUANGDAN_REWARD,                9009).% 双旦活动 
+-define(CONST_COST_CARD_EXCHANGE_PARTNER,           9010).% 抽卡换武将 
+-define(CONST_COST_STONE_TRANSFER,                  9011).% 宝石：转移 
+-define(CONST_COST_CROSS_ARENA_DAY,                 9021).% 跨服竞技场：每日奖励 
+-define(CONST_COST_CROSS_ARENA_ACHIEVE,             9022).% 跨服竞技场：成就奖励 
+
+-define(CONST_COST_CROSS_ARENA_SHOP,                9023).% 跨服竞技场：购买商品 
+-define(CONST_COST_ARCHERY_REWORD_GOLD,             10001).% 辕门射戟：累计奖励 
+-define(CONST_COST_ARCHERY_ARROW,                   10002).% 辕门射戟：购买箭矢 
+-define(CONST_COST_ARCHERY_MAIL,                    10003).% 辕门射戟：前十奖励 
+-define(CONST_COST_ENCROACH_REWARD,                 11101).% 攻城掠地：随机道具 
+-define(CONST_COST_ENCROACH_COST,                   11102).% 攻城掠地：购买移动力花费 
+-define(CONST_COST_BLESS_GET_AWARD,                 11103).% 运营活动：财神祝福 
+-define(CONST_COST_OPEN_TXJ,                        11104).% 运营活动：同心结 
+-define(CONST_COST_ANSWER_RIDDLE,                   11105).% 猜灯谜奖励 
+-define(CONST_COST_SECRET_REFRESH,                  11301).% 云游商人：刷新花费 
+
+-define(CONST_COST_SECRET_BUY_GOODS,                11302).% 云游商人：购买道具花费 
+-define(CONST_COST_SECRET_BG_SCORE,                 11303).% 云游商人：购买道具积分 
+-define(CONST_COST_TEACH_PASS,                      11401).% 教学：通关奖励 
+-define(CONST_COST_MIXED_LOGIN,                     11501).% 合服活动：登入礼包 
+-define(CONST_COST_MIXED_RANK,                      11502).% 合服活动：排行榜奖励 
+-define(CONST_COST_GAMBLE_EXCHANGE,                 11601).% 青梅煮酒：兑换筹码 
+-define(CONST_COST_GAMBLE_EXCHANGE_CASH,            11602).% 青梅煮酒：兑换元宝 
+-define(CONST_COST_KB_TREASURE_TURN_COST,           11701).% 皇陵探宝：付费转盘 
+-define(CONST_COST_KB_TREASURE_TURN_GOODS,          11702).% 皇陵探宝：转盘获得物品 
+-define(CONST_COST_HUNDRED_SERV,                    11801).% 百服活动：邮件 
+
+-define(CONST_COST_HUNDRED_TALK,                    11802).% 百服活动：喊话 
+-define(CONST_COST_LIMIT_MALL,                      11803).% 限购商城：购买 
+-define(CONST_COST_CARD21_CHIP,                     11804).% 21点筹码 
+

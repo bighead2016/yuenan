@@ -1,0 +1,1 @@
+alter table game_cross_arena_robot modify column fight_list varchar(200) NOT NULL DEFAULT '';

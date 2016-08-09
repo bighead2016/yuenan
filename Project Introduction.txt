@@ -1,0 +1,12 @@
+开发环境: 
+	win32 + eclipse + erlide
+
+环境设定: 
+	1. Window ->  Preferences ->  Erlang -> Install runtimes -> <Add> : 添加你erlang安装的目录
+	2. Window ->  Preferences -> General -> Content Types -> Text ->
+		Erlang source file -> Default encoding: utf-8  -> <Update> -> <OK>
+
+Output  folder : ./../ebin/;
+Source  folder : src;src/data;src/misc;src/mod_ability;src/mod_achievement;src/mod_act;src/mod_active;src/mod_admin;src/mod_ai;src/mod_archery;src/mod_arena_pvp;src/mod_battle;src/mod_bless;src/mod_boss;src/mod_buff;src/mod_camp;src/mod_camp_pvp;src/mod_card_21_point;src/mod_center;src/mod_chat;src/mod_collect;src/mod_combine;src/mod_commerce;src/mod_container;src/mod_copy_single;src/mod_crontab;src/mod_cross;src/mod_cross_arena;src/mod_cross_broadcast;src/mod_data_trans;src/mod_encroach;src/mod_ets;src/mod_furnace;src/mod_gamble;src/mod_gateway;src/mod_goods;src/mod_group;src/mod_guide;src/mod_guild;src/mod_guild_party;src/mod_guild_pvp;src/mod_gun_award;src/mod_home;src/mod_horse;src/mod_hundred_serv;src/mod_invasion;src/mod_kb_treasure;src/mod_limitMall;src/mod_logger;src/mod_lottery;src/mod_mail;src/mod_mall;src/mod_manage;src/mod_map;src/mod_market;src/mod_mcopy;src/mod_message;src/mod_mind;src/mod_mixedServ_activity;src/mod_monster;src/mod_mysql;src/mod_new_serv;src/mod_partner;src/mod_partner_soul;src/mod_party;src/mod_player;src/mod_practice;src/mod_rank;src/mod_relation;src/mod_resource;src/mod_robot;src/mod_schedule;src/mod_security;src/mod_shop;src/mod_single_arena;src/mod_skill;src/mod_snow;src/mod_spring;src/mod_task;src/mod_teach;src/mod_team;src/mod_tower;src/mod_weapon;src/mod_welfare;src/mod_world;src/mod_yunying_activity;src/trans;
+Include folder : include;
+

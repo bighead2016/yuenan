@@ -1,0 +1,12 @@
+CREATE TABLE `log_data_shop_secret` (
+  `user_id` int(11) NOT NULL,
+  `account` char(255) NOT NULL,
+  `sid` int(4) NOT NULL,
+  `money_type` int(4) NOT NULL,
+  `cost` int(12) NOT NULL,
+  `score` int(12) NOT NULL,
+  `goods_id` int(12) NOT NULL,
+  `goods_num` int(5) NOT NULL,
+  `time` int(11) NOT NULL,
+  `shop_type` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

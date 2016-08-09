@@ -1,0 +1,84 @@
+%% Author: php
+%% Created:
+%% Description: TODO: Add description to group_packet
+-module(group_packet).
+
+%%
+%% Include files
+%%
+-include("../include/const.common.hrl").
+-include("../include/const.protocol.hrl").
+%%
+%% Exported Functions
+%%
+-export([packet_format/1]).
+%%
+%% API Functions
+%%
+%% *必须实现方法
+%% 消息号与消息格式一一对应
+packet_format(?MSG_ID_GROUP_CS_LIST_GROUP) ->
+	?MSG_FORMAT_GROUP_CS_LIST_GROUP;
+packet_format(?MSG_ID_GROUP_SC_LIST_GROUP) ->
+	?MSG_FORMAT_GROUP_SC_LIST_GROUP;
+packet_format(?MSG_ID_GROUP_CS_CREATE) ->
+	?MSG_FORMAT_GROUP_CS_CREATE;
+packet_format(?MSG_ID_GROUP_CS_QUIT) ->
+	?MSG_FORMAT_GROUP_CS_QUIT;
+packet_format(?MSG_ID_GROUP_CS_NEW_LEADER) ->
+	?MSG_FORMAT_GROUP_CS_NEW_LEADER;
+packet_format(?MSG_ID_GROUP_CS_REQ2JOIN) ->
+	?MSG_FORMAT_GROUP_CS_REQ2JOIN;
+packet_format(?MSG_ID_GROUP_SC_REQ2JOIN) ->
+	?MSG_FORMAT_GROUP_SC_REQ2JOIN;
+packet_format(?MSG_ID_GROUP_CS_RSP2JOIN) ->
+	?MSG_FORMAT_GROUP_CS_RSP2JOIN;
+packet_format(?MSG_ID_GROUP_CS_KICKOUT) ->
+	?MSG_FORMAT_GROUP_CS_KICKOUT;
+packet_format(?MSG_ID_GROUP_SC_KICKOUT) ->
+	?MSG_FORMAT_GROUP_SC_KICKOUT;
+packet_format(?MSG_ID_GROUP_CS_CANCEL2JOIN) ->
+	?MSG_FORMAT_GROUP_CS_CANCEL2JOIN;
+packet_format(?MSG_ID_GROUP_SC_CANCEL2JOIN) ->
+	?MSG_FORMAT_GROUP_SC_CANCEL2JOIN;
+packet_format(?MSG_ID_GROUP_CS_AUTOJOIN) ->
+	?MSG_FORMAT_GROUP_CS_AUTOJOIN;
+packet_format(?MSG_ID_GROUP_CS_REQ2WAITING) ->
+	?MSG_FORMAT_GROUP_CS_REQ2WAITING;
+packet_format(?MSG_ID_GROUP_CS_CANCEL2WAIT) ->
+	?MSG_FORMAT_GROUP_CS_CANCEL2WAIT;
+packet_format(?MSG_ID_GROUP_DELETE_WAITER) ->
+	?MSG_FORMAT_GROUP_DELETE_WAITER;
+packet_format(?MSG_ID_GROUP_CS_INVITE) ->
+	?MSG_FORMAT_GROUP_CS_INVITE;
+packet_format(?MSG_ID_GROUP_SC_INVITE) ->
+	?MSG_FORMAT_GROUP_SC_INVITE;
+packet_format(?MSG_ID_GROUP_CS_RSP2INVITE) ->
+	?MSG_FORMAT_GROUP_CS_RSP2INVITE;
+packet_format(?MSG_ID_GROUP_SC_LIST_WAIT) ->
+	?MSG_FORMAT_GROUP_SC_LIST_WAIT;
+packet_format(?MSG_ID_GROUP_CS_LIST_WAIT) ->
+	?MSG_FORMAT_GROUP_CS_LIST_WAIT;
+packet_format(?MSG_ID_GROUP_SC_UPD_ON_OFF) ->
+	?MSG_FORMAT_GROUP_SC_UPD_ON_OFF;
+packet_format(?MSG_ID_GROUP_CS_RECOMMEND) ->
+	?MSG_FORMAT_GROUP_CS_RECOMMEND;
+packet_format(?MSG_ID_GROUP_SC_RECOMMEND) ->
+	?MSG_FORMAT_GROUP_SC_RECOMMEND;
+packet_format(?MSG_ID_GROUP_SC_DISBAND) ->
+	?MSG_FORMAT_GROUP_SC_DISBAND;
+packet_format(?MSG_ID_GROUP_SC_BUFFER) ->
+	?MSG_FORMAT_GROUP_SC_BUFFER;
+packet_format(?MSG_ID_GROUP_CS_TEMP_BUFFER) ->
+	?MSG_FORMAT_GROUP_CS_TEMP_BUFFER;
+packet_format(?MSG_ID_GROUP_SC_TEMP_BUFFER) ->
+	?MSG_FORMAT_GROUP_SC_TEMP_BUFFER;
+packet_format(?MSG_ID_GROUP_CS_MEMBER_POWER) ->
+	?MSG_FORMAT_GROUP_CS_MEMBER_POWER;
+packet_format(?MSG_ID_GROUP_SC_MEMBER_POWER) ->
+	?MSG_FORMAT_GROUP_SC_MEMBER_POWER;
+packet_format(MsgId) ->
+	?MSG_ERROR("~p~n", [MsgId]).
+%%
+%% Local Functions
+%%

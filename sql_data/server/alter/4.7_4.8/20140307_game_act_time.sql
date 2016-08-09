@@ -1,0 +1,13 @@
+alter table `game_act_time` drop column `type`;
+alter table `game_act_time` drop column `sec`;
+alter table `game_act_time` drop column `min`;
+alter table `game_act_time` drop column `hour`;
+alter table `game_act_time` drop column `day`;
+alter table `game_act_time` drop column `month`;
+alter table `game_act_time` drop column `year`;
+alter table `game_act_time` drop column `unix_time`;
+alter table `game_act_time` drop column `exem`;
+alter table `game_act_time` drop column `exef`;
+alter table `game_act_time` drop column `exea`;
+alter table `game_act_time` add column `start_time` int(20) NOT NULL after `id`;
+alter table `game_act_time` add column `stop_time` int(20) NOT NULL after `start_time`;

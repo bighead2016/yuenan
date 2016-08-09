@@ -1,0 +1,92 @@
+%% Author: php
+%% Created:
+%% Description: TODO: Add description to tower_packet
+-module(tower_packet).
+
+%%
+%% Include files
+%%
+-include("../include/const.common.hrl").
+-include("../include/const.protocol.hrl").
+%%
+%% Exported Functions
+%%
+-export([packet_format/1]).
+%%
+%% API Functions
+%%
+%% *必须实现方法
+%% 消息号与消息格式一一对应
+packet_format(?MSG_ID_TOWER_SC_OPEN_TOWER) ->
+	?MSG_FORMAT_TOWER_SC_OPEN_TOWER;
+packet_format(?MSG_ID_TOWER_OPEN_TOWER) ->
+	?MSG_FORMAT_TOWER_OPEN_TOWER;
+packet_format(?MSG_ID_TOWER_CS_SELECT_CAMP) ->
+	?MSG_FORMAT_TOWER_CS_SELECT_CAMP;
+packet_format(?MSG_ID_TOWER_SC_SELECT_CAMP) ->
+	?MSG_FORMAT_TOWER_SC_SELECT_CAMP;
+packet_format(?MSG_ID_TOWER_CS_START_RUSH) ->
+	?MSG_FORMAT_TOWER_CS_START_RUSH;
+packet_format(?MSG_ID_TOWER_SC_START_RUSH) ->
+	?MSG_FORMAT_TOWER_SC_START_RUSH;
+packet_format(?MSG_ID_TOWER_CS_DIVINE) ->
+	?MSG_FORMAT_TOWER_CS_DIVINE;
+packet_format(?MSG_ID_TOWER_SC_DIVINE) ->
+	?MSG_FORMAT_TOWER_SC_DIVINE;
+packet_format(?MSG_ID_TOWER_CS_AUTO_RUSH) ->
+	?MSG_FORMAT_TOWER_CS_AUTO_RUSH;
+packet_format(?MSG_ID_TOWER_SC_AUTO_RUSH) ->
+	?MSG_FORMAT_TOWER_SC_AUTO_RUSH;
+packet_format(?MSG_ID_TOWER_CS_STOP_RUSH) ->
+	?MSG_FORMAT_TOWER_CS_STOP_RUSH;
+packet_format(?MSG_ID_TOWER_SC_STOP_RUSH) ->
+	?MSG_FORMAT_TOWER_SC_STOP_RUSH;
+packet_format(?MSG_ID_TOWER_CS_RESET) ->
+	?MSG_FORMAT_TOWER_CS_RESET;
+packet_format(?MSG_ID_TOWER_CS_CARD) ->
+	?MSG_FORMAT_TOWER_CS_CARD;
+packet_format(?MSG_ID_TOWER_SC_CARD) ->
+	?MSG_FORMAT_TOWER_SC_CARD;
+packet_format(?MSG_ID_TOWER_CS_AWARD) ->
+	?MSG_FORMAT_TOWER_CS_AWARD;
+packet_format(?MSG_ID_TOWER_SC_AWARD) ->
+	?MSG_FORMAT_TOWER_SC_AWARD;
+packet_format(?MSG_ID_TOWER_CS_START_BATTLE) ->
+	?MSG_FORMAT_TOWER_CS_START_BATTLE;
+packet_format(?MSG_ID_TOWER_SC_START_BATTLE) ->
+	?MSG_FORMAT_TOWER_SC_START_BATTLE;
+packet_format(?MSG_ID_TOWER_CS_SPEED_TYPE) ->
+	?MSG_FORMAT_TOWER_CS_SPEED_TYPE;
+packet_format(?MSG_ID_TOWER_SC_SPEED_TYPE) ->
+	?MSG_FORMAT_TOWER_SC_SPEED_TYPE;
+packet_format(?MSG_ID_TOWER_SC_OPEN_RUSH) ->
+	?MSG_FORMAT_TOWER_SC_OPEN_RUSH;
+packet_format(?MSG_ID_TOWER_CS_RUSH_OVER) ->
+	?MSG_FORMAT_TOWER_CS_RUSH_OVER;
+packet_format(?MSG_ID_TOWER_SC_RUSH_OVER) ->
+	?MSG_FORMAT_TOWER_SC_RUSH_OVER;
+packet_format(?MSG_ID_TOWER_SC_WIPE_CARD) ->
+	?MSG_FORMAT_TOWER_SC_WIPE_CARD;
+packet_format(?MSG_ID_TOWER_CS_DIVINE_INFO) ->
+	?MSG_FORMAT_TOWER_CS_DIVINE_INFO;
+packet_format(?MSG_ID_TOWER_CS_QUIT_TOWER) ->
+	?MSG_FORMAT_TOWER_CS_QUIT_TOWER;
+packet_format(?MSG_ID_TOWER_CS_VIP_AWARD) ->
+	?MSG_FORMAT_TOWER_CS_VIP_AWARD;
+packet_format(?MSG_ID_TOWER_SC_VIP_AWARD) ->
+	?MSG_FORMAT_TOWER_SC_VIP_AWARD;
+packet_format(?MSG_ID_TOWER_SC_BOSS_AWARD) ->
+	?MSG_FORMAT_TOWER_SC_BOSS_AWARD;
+packet_format(?MSG_ID_TOWER_CS_BUY_TIMES) ->
+	?MSG_FORMAT_TOWER_CS_BUY_TIMES;
+packet_format(?MSG_ID_TOWER_SC_RESET_TIMES) ->
+	?MSG_FORMAT_TOWER_SC_RESET_TIMES;
+packet_format(?MSG_ID_TOWER_CS_REPORT_LIST) ->
+	?MSG_FORMAT_TOWER_CS_REPORT_LIST;
+packet_format(?MSG_ID_TOWER_SC_REPORT_LIST) ->
+	?MSG_FORMAT_TOWER_SC_REPORT_LIST;
+packet_format(MsgId) ->
+	?MSG_ERROR("~p~n", [MsgId]).
+%%
+%% Local Functions
+%%

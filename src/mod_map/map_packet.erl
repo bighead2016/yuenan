@@ -1,0 +1,104 @@
+%% Author: php
+%% Created:
+%% Description: TODO: Add description to map_packet
+-module(map_packet).
+
+%%
+%% Include files
+%%
+-include("../include/const.common.hrl").
+-include("../include/const.protocol.hrl").
+%%
+%% Exported Functions
+%%
+-export([packet_format/1]).
+%%
+%% API Functions
+%%
+%% *必须实现方法
+%% 消息号与消息格式一一对应
+packet_format(?MSG_ID_MAP_ENTER) ->
+	?MSG_FORMAT_MAP_ENTER;
+packet_format(?MSG_ID_MAP_ENTER_PLAYER) ->
+	?MSG_FORMAT_MAP_ENTER_PLAYER;
+packet_format(?MSG_ID_MAP_EXIT) ->
+	?MSG_FORMAT_MAP_EXIT;
+packet_format(?MSG_ID_MAP_PLAYER_MOVE) ->
+	?MSG_FORMAT_MAP_PLAYER_MOVE;
+packet_format(?MSG_ID_MAP_PLAYER_MOVE_NOTICE) ->
+	?MSG_FORMAT_MAP_PLAYER_MOVE_NOTICE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_LV) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_LV;
+packet_format(?MSG_ID_MAP_SC_CHANGE_VIP) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_VIP;
+packet_format(?MSG_ID_MAP_SC_CHANGE_STATE) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_STATE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_SKIN_FASHION) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_SKIN_FASHION;
+packet_format(?MSG_ID_MAP_SC_CHANGE_SKIN_WEAPON) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_SKIN_WEAPON;
+packet_format(?MSG_ID_MAP_SC_CHANGE_SKIN_ARMOR) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_SKIN_ARMOR;
+packet_format(?MSG_ID_MAP_SC_CHANGE_SKIN_STEP) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_SKIN_STEP;
+packet_format(?MSG_ID_MAP_SC_CHANGE_DOUBLE) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_DOUBLE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_SKIN_RIDE) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_SKIN_RIDE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_TITLE) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_TITLE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_GUILD) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_GUILD;
+packet_format(?MSG_ID_MAP_SC_CHANGE_POSITION) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_POSITION;
+packet_format(?MSG_ID_MAP_CS_CHANGE_INFO_STATE) ->
+	?MSG_FORMAT_MAP_CS_CHANGE_INFO_STATE;
+packet_format(?MSG_ID_MAP_SC_MONSTER_INFO) ->
+	?MSG_FORMAT_MAP_SC_MONSTER_INFO;
+packet_format(?MSG_ID_MAP_SC_MONSTER_MOVE) ->
+	?MSG_FORMAT_MAP_SC_MONSTER_MOVE;
+packet_format(?MSG_ID_MAP_SC_CHANGE_TEAM) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_TEAM;
+packet_format(?MSG_ID_MAP_SC_CHANGE_NAME) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_NAME;
+packet_format(?MSG_ID_MAP_SC_MONSTER_REMOVE) ->
+	?MSG_FORMAT_MAP_SC_MONSTER_REMOVE;
+packet_format(?MSG_ID_MAP_SC_VIP_HIDE) ->
+	?MSG_FORMAT_MAP_SC_VIP_HIDE;
+packet_format(?MSG_ID_MAP_CS_OPENED_MAP_LIST) ->
+	?MSG_FORMAT_MAP_CS_OPENED_MAP_LIST;
+packet_format(?MSG_ID_MAP_SC_OPENED_MAP_LIST) ->
+	?MSG_FORMAT_MAP_SC_OPENED_MAP_LIST;
+packet_format(?MSG_ID_MAP_SC_UPDATE_MAP) ->
+	?MSG_FORMAT_MAP_SC_UPDATE_MAP;
+packet_format(?MSG_ID_MAP_CS_COPY_INFO) ->
+	?MSG_FORMAT_MAP_CS_COPY_INFO;
+packet_format(?MSG_ID_MAP_SC_COPY_INFO) ->
+	?MSG_FORMAT_MAP_SC_COPY_INFO;
+packet_format(?MSG_ID_MAP_CS_NPC) ->
+	?MSG_FORMAT_MAP_CS_NPC;
+packet_format(?MSG_ID_MAP_SC_COLLECTION) ->
+	?MSG_FORMAT_MAP_SC_COLLECTION;
+packet_format(?MSG_ID_MAP_SC_PLAYER_MOVE) ->
+	?MSG_FORMAT_MAP_SC_PLAYER_MOVE;
+packet_format(?MSG_ID_MAP_CS_FLY) ->
+	?MSG_FORMAT_MAP_CS_FLY;
+packet_format(?MSG_ID_MAP_SC_CHANGE_GUILD_LV) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_GUILD_LV;
+packet_format(?MSG_ID_MAP_SC_SHOW_MAP) ->
+	?MSG_FORMAT_MAP_SC_SHOW_MAP;
+packet_format(?MSG_ID_MAP_SC_CHANGE_FOLLOW) ->
+	?MSG_FORMAT_MAP_SC_CHANGE_FOLLOW;
+packet_format(?MSG_ID_MAP_CS_INVITE_PK) ->
+	?MSG_FORMAT_MAP_CS_INVITE_PK;
+packet_format(?MSG_ID_MAP_SC_INVITE_PK) ->
+	?MSG_FORMAT_MAP_SC_INVITE_PK;
+packet_format(?MSG_ID_MAP_CS_REPLY_PK) ->
+	?MSG_FORMAT_MAP_CS_REPLY_PK;
+packet_format(?MSG_ID_MAP_STAR_LV_CHANGE) ->
+	?MSG_FORMAT_MAP_STAR_LV_CHANGE;
+packet_format(MsgId) ->
+	?MSG_ERROR("~p~n", [MsgId]).
+%%
+%% Local Functions
+%%

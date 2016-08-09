@@ -1,0 +1,2 @@
+alter table game_cross_arena_member add column `player_data2` longblob NOT NULL COMMENT '跨服竞技玩家数据2' AFTER `player_data`;
+alter table game_cross_arena_member add column `player_data3` longblob NOT NULL COMMENT '跨服竞技玩家数据3' AFTER `player_data2`;
