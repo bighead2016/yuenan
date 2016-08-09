@@ -1,0 +1,191 @@
+#!/usr/bin/env escript
+%% -*- mailbox:laojiajie@gmail.com -*-
+%%! -pa .\deps\lager\ebin .\ebin
+
+
+-define(INCLUDE   ,[{i,"./include/"},{i,"./include/hrl/"}]).
+
+-define(OUTPUT	  ,{outdir,"./ebin/"}).
+-define(INLINE    ,{inline,[{inline_size,30}]}).
+-define(SRC,[
+			 "./src"]).
+
+
+
+main([String]) ->
+	case String of
+		"update" -> update();
+		"all" -> all();
+		"data" -> data();
+		"update_ignore_hrl" ->	update_ignore_hrl()
+	end.
+
+all()->
+	T = now_sec(),
+	F = fun(Src,Acc)-> Acc++ get_dir_file(Src) end,
+	AllFiles = lists:foldl(F, [], ?SRC),
+	N = length(AllFiles),
+	Pid=self(),
+	[spawn(fun()->compile_file(ErlFile,Pid) end)||ErlFile<-AllFiles],
+	loop(0,0,N,T).
+
+
+update()->
+	T = now_sec(),
+	F = fun(Src,Acc)-> Acc++ get_dir_file_new(Src,false) end,
+	AllFiles = lists:foldl(F, [], ?SRC),
+	N = length(AllFiles),
+	Pid=self(),
+	Fun = fun(ErlFile) ->
+		io:format("start compiled: ~p~n",[ErlFile]),
+		spawn(fun()->compile_file(ErlFile,Pid) end)
+	end,
+
+	lists:map(Fun,AllFiles),
+	loop(0,0,N,T).
+
+update_ignore_hrl() ->
+	T = now_sec(),
+	F = fun(Src,Acc)-> Acc++ get_dir_file_new(Src,true) end,
+	AllFiles = lists:foldl(F, [], ?SRC),
+	N = length(AllFiles),
+	Pid=self(),
+	Fun = fun(ErlFile) ->
+		io:format("start compiled: ~p~n",[ErlFile]),
+		spawn(fun()->compile_file(ErlFile,Pid) end)
+	end,
+
+	lists:map(Fun,AllFiles),
+	loop(0,0,N,T).
+
+
+loop(_,Max,Max,T)->
+	Now = now_sec(),
+	io:format("All File is Compiled ! Used [~w] Seconds .~n",[Now-T]);
+
+loop(P,N,Max,T)->
+	receive
+		ok ->
+			P1 = N * 100 div Max,
+			case P1 of
+				P->loop(P,N+1,Max,T);
+				_->io:format("Waiting: ~w / ~w [~w %] ~n", [N+1,Max,P1]),
+				   loop(P,N+1,Max,T)
+			end;
+		_->
+			io:format("*******************Some thing wrong when Compile !**********************~n")
+	end.
+
+data()->
+	Dir="../src/data",
+	{ok,Filenames}=file:list_dir(Dir),
+	ErlFiles=[Dir++"/"++Filename||Filename<-Filenames,filename:extension(Filename)=:=".erl"],
+	[begin 
+		 compile_file(ErlFile),
+		 Mn = filename:basename(ErlFile,".erl"),
+		 c:l(list_to_atom(Mn))
+	 end||ErlFile<-ErlFiles].
+	
+get_dir_file(Dir)->
+	case file:list_dir(Dir) of
+		{ok,Filenames} ->
+			Fun = fun(Filename,Files) ->
+				case filename:extension(Filename)=:=".erl" of
+					true ->
+						Files++[Dir++"/"++Filename];
+					false ->
+						Files++get_dir_file(Dir++"/"++Filename)
+				end
+			end,
+			lists:foldl(Fun,[],Filenames);
+		_ ->
+			[]
+	end.
+	% [Dir++"/"++Filename||Filename<-Filenames,filename:extension(Filename)=:=".erl"].
+
+get_dir_file_new(Dir,IsIgnoreHrl)->
+	case file:list_dir(Dir) of
+		{ok,Filenames} ->
+			Fun = fun(Filename,Files) ->
+				case filename:extension(Filename)=:=".erl" of
+					true ->
+						case is_new(Dir,Filename,IsIgnoreHrl) of
+							true ->
+								Files++[Dir++"/"++Filename];
+							false ->
+								Files
+						end;
+					false ->
+						Files ++ get_dir_file_new(Dir++"/"++Filename,IsIgnoreHrl)
+				end
+			end,
+			lists:foldl(Fun,[],Filenames);
+		_ ->
+			[]
+	end.
+
+is_new(Dir,Filename,IsIgnoreHrl)->
+	SrcFile = Dir++"/"++Filename,
+	{outdir,OutPut} = ?OUTPUT,
+	BinFile = OutPut ++ filename:basename(Filename,".erl")++".beam",
+	SrcTime = filelib:last_modified(SrcFile),
+	BinTime = filelib:last_modified(BinFile),
+	case BinTime<SrcTime of						%% 文件是否改动过
+		true ->
+			true;
+		false ->
+			case IsIgnoreHrl of
+				true ->
+					false;
+				false ->
+					case filelib:is_file(BinFile) of	%% 引用的头文件是否改动过
+						true ->
+							case beam_lib:chunks(BinFile, [abstract_code]) of
+								{ok,{_Module,[{_,{_,AttributeList}}]}} ->
+									Fun = fun(Attribute) ->
+										case Attribute of
+											{attribute,_,file,Info} ->
+												{HrlFile,_} = Info,
+												case filename:extension(HrlFile)=:=".hrl" of
+													true ->
+														is_hrl_new(HrlFile,BinTime);
+													false ->
+														false
+												end;
+											_Else ->
+												false
+										end
+									end,
+									lists:any(Fun,AttributeList);
+								_Other ->
+									true
+							end;
+						false ->
+							true
+					end
+			end
+	end.
+
+is_hrl_new(Filename,SrcTime) ->
+	FileTime = filelib:last_modified(Filename),
+	FileTime == 0 orelse FileTime>SrcTime.
+		
+
+compile_file(ErlFile)->
+	c:c(ErlFile,?INCLUDE++[?OUTPUT,?INLINE,debug_info,nowarn_unused_vars,{d, 'DEBUG'}]),
+	ok.
+compile_file(ErlFile,Pid)->
+	c:c(ErlFile,?INCLUDE++[?OUTPUT,?INLINE,debug_info,nowarn_unused_vars,{d, 'DEBUG'}]),
+	Pid!ok.
+
+%% compile_file(ErlFile)->
+%% 	c:c(ErlFile,[?INCLUDE,?OUTPUT,?INLINE,warnings_as_errors,native,{hipe,o3}]),
+%% 	ok.
+%% compile_file(ErlFile,Pid)->
+%% 	c:c(ErlFile,[?INCLUDE,?OUTPUT,?INLINE,warnings_as_errors,native,{hipe,o3}]),
+%% 	Pid!ok.
+
+now_sec()->
+	{M,S,_Ms}=erlang:now(),
+	M * 1000000 + S.	
+				
