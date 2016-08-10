@@ -40,7 +40,7 @@ treat_http_request(Socket, [http_request, 'GET', {abs_path, RequestBin}, _Versio
 				  _ ->
 					  Result
 			  end,
-		% ?MSG_ERROR("Result = ~p~n Ret = ~w",[Result,Ret]),
+		?MSG_DEBUG("Result = ~p~n Ret = ~w",[Result,Ret]),
 		Status = case _Status of
 					 ?true ->
 						 1;
@@ -61,7 +61,7 @@ treat_http_request(Socket, [http_request, 'POST', _Request, _Version]) ->
 		Msg						= get_post_data(Socket, Length,20),
 		{CMD, KVList}			= get_cmd_parm(Msg),
 		{_Status, _Len, Result} = do_handle_request(CMD, KVList),
-		?MSG_ERROR("Result = ~p",[Result]),
+		?MSG_DEBUG("Result = ~p",[Result]),
 		send_data(Socket, Result, ?HTTP_CODE_200),
 		?ok
 	catch
