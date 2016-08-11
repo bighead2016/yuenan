@@ -746,6 +746,7 @@ do_market() ->
         ?true ->
             case player_api:process_call(UserId, mod_tencent, do_player_market, [CMD, Step]) of
                 ?false ->
+                    
                     {?true, 1001, "{\"ret\":1001,\"msg\":\"玩家不在线\",\"zoneid\":\""++misc:to_list(ServId)++"\"}"};
                 Ret ->
                     Ret

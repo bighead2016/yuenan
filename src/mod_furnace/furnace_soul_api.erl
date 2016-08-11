@@ -499,6 +499,7 @@ get_hole_empty_count([Hole|RestHole], {HoleEmpty, HoleNull, HoleEquip}) ->
    
 
 up_stone(Player, CtnType,PartnerId,EquipIndex,StoneIndex) ->
+    ?MSG_ERROR("up_stone ~w,~w,~w,~w", [CtnType,PartnerId,EquipIndex,StoneIndex]),
     UserId = Player#player.user_id,
     case check_up_soul(Player, CtnType,PartnerId,EquipIndex,StoneIndex) of
         ?false ->
@@ -514,6 +515,7 @@ up_stone(Player, CtnType,PartnerId,EquipIndex,StoneIndex) ->
                             Container = get_ctn(Player, CtnType, PartnerId),
                             case ctn_bag2_api:replace(CtnType, UserId, PartnerId, Container, EquipIndex, NewEquipInfo) of
                                 {?error, Tips2} ->
+                                    ?MSG_ERROR("up_stone Tips2 ~p", [Tips2]),
                                     misc_packet:send_tips(UserId, Tips2),
                                     {?ok, Player};
                                 {?ok, Container2, Packet} ->
@@ -542,6 +544,7 @@ up_stone(Player, CtnType,PartnerId,EquipIndex,StoneIndex) ->
                             ?MSG_ERROR("gold not enough", [])
                     end;
                 _ ->
+                    ?MSG_ERROR("up_stone TIP_COMMON_CASH_NOT_ENOUGH", []),
                     misc_packet:send_tips(UserId, ?TIP_COMMON_CASH_NOT_ENOUGH)
             end
     end.
@@ -1021,6 +1024,7 @@ check_compose_soul(#player{user_id = UserId, bag = Bag} = Player, Index, Count) 
             end,
             case Lv >= ?CONST_FURNACE_STONE_MAX_LEVEL of
                 ?true ->
+                    ?MSG_ERROR("stone lv max ~w", [GoodsId]),
                     ?false;
                 _ ->
                     NewGoodsId = get_next_soul_id(GoodsId),
@@ -1028,6 +1032,7 @@ check_compose_soul(#player{user_id = UserId, bag = Bag} = Player, Index, Count) 
                     {?ok, EmptyCount} = ctn_bag2_api:empty_count(Bag),
                     case  EmptyCount >= 1 orelse NewIdCount =/= 0 of
                         ?false ->
+                            ?MSG_ERROR("stone BAG_NOT_ENOUGH ~w", [GoodsId,EmptyCount,NewIdCount]),
                             misc_packet:send_tips(UserId, ?TIP_COMMON_BAG_NOT_ENOUGH),
                             ?false;
                         _ ->

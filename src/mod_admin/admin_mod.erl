@@ -2248,9 +2248,9 @@ convert_time(H,M,S) ->
 convert_date_time(Seconds) when is_number(Seconds) ->
 	convert_date_time(misc:seconds_to_localtime(Seconds));
 convert_date_time({{Y,M,D},{H,Min,S}}) ->
-	misc:to_list(Y)++"年"++date_format(M)++"月"++date_format(D)++"日"++
-	"--" ++
-	misc:to_list(H)++":"++misc:to_list(Min)++":"++misc:to_list(S).
+	misc:to_list(Y)++"-"++date_format(M)++"-"++date_format(D)++
+	" " ++
+	date_format(H)++":"++date_format(Min)++":"++date_format(S).
 
 date_format(D) ->
 	if D < 10 -> "0" ++ misc:to_list(D); ?true  -> misc:to_list(D) end.
