@@ -1372,7 +1372,7 @@ reward_last(MaterNode, RoomId, UserId, MonsterId, Gold) ->
             end;
 		_ -> ?ok
 	end,
-	player_money_api:plus_money(UserId, ?CONST_SYS_CASH_BIND, 10000, ?CONST_COST_BOSS_REWARD_LAST),
+	%%player_money_api:plus_money(UserId, ?CONST_SYS_CASH_BIND, 10000, ?CONST_COST_BOSS_REWARD_LAST),
 	player_money_api:plus_money(UserId, ?CONST_SYS_GOLD_BIND, Gold, ?CONST_COST_BOSS_REWARD_LAST).
 
 get_reward_hurt(UserId, _IsRobot) ->
@@ -1431,20 +1431,21 @@ get_reward_hurt(UserId, _IsRobot) ->
 % 1.2000
 
 % 参与奖1000
+get_rank_bind_cash(Rank) -> 0.
 
-get_rank_bind_cash(Rank) ->
-	case Rank of
-		1 -> 100;
-		2 -> 90;
-		3 -> 80;
-		4 -> 70;
-		5 -> 60;
-		6 -> 50;
-		7 -> 40;
-		8 -> 30;
-		9 -> 20;
-		_ -> 10
-	end.
+% get_rank_bind_cash(Rank) ->
+% 	case Rank of
+% 		1 -> 100;
+% 		2 -> 90;
+% 		3 -> 80;
+% 		4 -> 70;
+% 		5 -> 60;
+% 		6 -> 50;
+% 		7 -> 40;
+% 		8 -> 30;
+% 		9 -> 20;
+% 		_ -> 10
+% 	end.
 
 
 
