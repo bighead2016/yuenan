@@ -172,7 +172,7 @@ msg_mail_info(Mail) when is_record(Mail, mail) ->
 			Mail#mail.title,
 			Mail#mail.time,
 			Mail#mail.content,
-			Mail#mail.cash,
+			round(Mail#mail.cash),
 			Mail#mail.bcash,
 			Mail#mail.gold,
 			Mail#mail.is_read,
