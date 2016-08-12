@@ -205,7 +205,7 @@ get_gift_2(Player, GiftType, Gift, Code) ->
                             TipPacket = message_api:msg_notice(?TIP_PLAYER_GIFT_GOODS, 
                                                                [{Player#player.user_id,(Player3#player.info)#info.user_name}], 
                                                                [], 
-                                                               [{?TIP_SYS_COMM,<<"首充礼包">>},{?TIP_SYS_GIFT,misc:to_list(GiftType)}]), 
+                                                               [{?TIP_SYS_COMM,<<"Thưởng Nạp Đầu">>},{?TIP_SYS_GIFT,misc:to_list(GiftType)}]), 
                             misc_app:broadcast_world(TipPacket);
                         _ -> ?ok
                     end,
@@ -220,7 +220,7 @@ get_gift_2(Player, GiftType, Gift, Code) ->
                             TipPacket = message_api:msg_notice(?TIP_PLAYER_GIFT_GOODS, 
                                                                [{Player#player.user_id,(Player3#player.info)#info.user_name}], 
                                                                [], 
-                                                               [{?TIP_SYS_COMM,<<"首充礼包">>},{?TIP_SYS_GIFT,misc:to_list(GiftType)}]), 
+                                                               [{?TIP_SYS_COMM,<<"Thưởng Nạp Đầu">>},{?TIP_SYS_GIFT,misc:to_list(GiftType)}]), 
                             misc_app:broadcast_world(TipPacket);
                         _ -> ?ok
                     end,

@@ -22,6 +22,9 @@
 		 check_buy_sale_goods/0, get_hot_search/1, get_market_hot_goods/3
 		 ]).
 
+-define(TAX_RATE, 0.9).
+
+
 %%
 %% API Functions
 %%----------------------------------------------------------------------------------------------
@@ -643,7 +646,7 @@ buy_goods_fixed_price_first(Id, _GoodsId, SaleInfo, Player) when is_record(SaleI
 							CostList1	= [{misc:to_list(FixedPrice)}],
 							Content1	= [{GoodsIdList}] ++ [{[{PlayerName}]}]++[{CostList1}],
 							mail_api:send_system_mail_to_one(SellerName, <<>>, <<>>,?CONST_MAIL_MARKET_SALE, Content1, [], 0, 
-													FixedPrice, 0, ?CONST_COST_MARKET_ADD),
+													FixedPrice*?TAX_RATE, 0, ?CONST_COST_MARKET_ADD),
 							achievement_api:add_achievement(UserId, ?CONST_ACHIEVEMENT_AUCTION, 0, 1),
 							CostList	= [{misc:to_list(FixedPrice)}],
 							Content		= [{CostList}] ++ [{[{SellerName}]}] ++ [{GoodsIdList}],
@@ -707,7 +710,7 @@ buy_goods_fixed_price_second(Id, BuyInfo, _GoodsId, Player) when is_record(BuyIn
 							CostList1	= [{misc:to_list(FixedPrice)}],
 							Content1	= [{GoodsIdList}] ++ [{[{PlayerName}]}] ++ [{CostList1}],
 							mail_api:send_system_mail_to_one(SellerName, <<>>, <<>>, ?CONST_MAIL_MARKET_SALE, Content1, 
-															[], 0, FixedPrice, 0, ?CONST_COST_MARKET_ADD),
+															[], 0, FixedPrice*?TAX_RATE, 0, ?CONST_COST_MARKET_ADD),
 							delete_buy_info_list(SaleId),
 							achievement_api:add_achievement(Player#player.user_id, ?CONST_ACHIEVEMENT_AUCTION, 0, 1),
 							CostList	= [{misc:to_list(FixedPrice)}],
@@ -976,7 +979,7 @@ check_buy_sale_goods() ->
 						CostList1	= [{misc:to_list(BidPrice)}],
 						Content1	= [{GoodsIdList}] ++ [{[{BuyerName}]}]++ [{CostList1}],
 						mail_api:send_system_mail_to_one(SellerName, <<>>, <<>>, ?CONST_MAIL_MARKET_SALE, Content1,
-														 [], 0, BidPrice, 0, ?CONST_COST_MARKET_ADD)
+														 [], 0, BidPrice*?TAX_RATE, 0, ?CONST_COST_MARKET_ADD)
 				end,
 				delete_sale_info(SaleId),          
 				delete_buy_info_list(SaleId),

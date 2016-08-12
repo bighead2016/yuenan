@@ -400,10 +400,10 @@ handle_cast({app_guild_pvp, UserId, Guild, CampId}, State) ->
     case CampId of
         ?CONST_GUILD_PVP_CAMP_ATT ->
             TipsPacket = message_api:msg_notice(?TIP_GUILD_PVP_APP_SUCCESS,
-                                 [{?TIP_SYS_COMM, misc:to_list("攻城")}]);
+                                 [{?TIP_SYS_COMM, <<"Công Thành">>}]);
         _ ->
             TipsPacket = message_api:msg_notice(?TIP_GUILD_PVP_APP_SUCCESS,
-                                 [{?TIP_SYS_COMM, misc:to_list("守城")}])
+                                 [{?TIP_SYS_COMM, <<"Thủ Thành">>}])
     end,
     case ets:lookup(?CONST_ETS_GUILD_PVP_GUILD, GuildId) of
         [] ->

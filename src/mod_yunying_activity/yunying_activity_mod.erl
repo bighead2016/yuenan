@@ -269,8 +269,8 @@ shuangdan_refresh_zero(Player)->
 													 end,[],CanGot),
 									 GoodsList2 =lists:flatten([goods_api:make(GoodsId, Bind, Count)||{_,_,GoodsId,Bind,Count}<-GoodsList]), 
 									 ReceiveName =(Player#player.info)#info.user_name,
-									 mail_api:send_interest_mail_to_one2(ReceiveName, <<"过期礼包">>, 
-																		 <<"这是您在活动期间未领取的礼包，请注意查收">>, ?CONST_MAIL_SAVE_CONTAIN_ATTACHMENT, 
+									 mail_api:send_interest_mail_to_one2(ReceiveName, <<"Quà quá hạn">>, 
+																		 <<"Đây là quà bạn sự kiện bạn chưa nhận, vui lòng chú ý nhận.">>, ?CONST_MAIL_SAVE_CONTAIN_ATTACHMENT, 
 																		 [], GoodsList2, 0, 0, 0, ?CONST_COST_MAIL_YUNYING);
 								 _ ->
 									 next
