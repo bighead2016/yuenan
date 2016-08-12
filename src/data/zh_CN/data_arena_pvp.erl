@@ -27,7 +27,7 @@ get_cross_list() ->
   %       {1,lists:seq(1,10)},
 
   		%%不做分中心服
-  		{1,lists:seq(1,100)},
+  		{1,lists:seq(1,300)},
 
         {0,[0]}].
   		

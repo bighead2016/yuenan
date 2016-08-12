@@ -22,7 +22,7 @@
 %%
 -export([get_gift/3, get_gift_reward/4]).
 -export([generate_code/3, get_code_type/1, generate_code_festival/2, get_code_type_festival/1]).
-
+-export([reward_gift/1,reward_gift_goods/1]).
 %%
 %% API Functions
 %%
@@ -39,8 +39,102 @@
 %%         {?error, ErrorCode} -> {?error, ErrorCode}
 %%     end;
 
+%% 用来发全服补偿的
+reward_gift_goods(GoodsId) ->
+    UserNameList = get_user_name_list(),
+    Title = "Quà nạp đầu",
+    Content = "Quà nạp lần đầu",
+    Fun = fun(UserName) -> 
+        do_reward_goods(UserName,GoodsId)
+    end,
+    Result  = lists:map(Fun, UserNameList).
+
+
+
+do_reward_goods(UserName,GoodsId) ->
+    Title = "Quà nạp đầu",
+    Content = "Quà nạp lần đầu",
+    case mysql_api:select_execute(<<"SELECT `account`, `user_id`, `reg_time`, `lv`,",
+                                    "`login_ip`, `login_time_last`, `pro`, `sex`, `cash`, `cash_bind`, `gold_bind` FROM `game_user`",
+                                    " WHERE `user_name` = '", (misc:to_binary(UserName))/binary, "';">>) of
+        {?ok, [[Account, UserId, RegTime, Lv, LoginIp, LastLoginTime, Pro, Sex, Cash, CashBind, GoldBind]]} ->
+            case  player_api:get_player_fields(UserId, [#player.info]) of
+                {?ok,[Info]} ->
+                     GoodsList = goods_api:make(GoodsId, 1),
+                     {UserName, mail_api:send_system_mail_to_one3(UserName, Title, Content, 0, [], GoodsList, 0, 0, 
+                                                                          0, ?CONST_COST_PLAYER_GM, 0)};
+                _ ->
+                    void
+            end;
+        _ ->
+            void
+    end.
+
+%% 用来发全服补偿的
+do_reward(UserName,GiftType) ->
+    Title = "Quà nạp đầu",
+    Content = "Quà nạp lần đầu",
+    case mysql_api:select_execute(<<"SELECT `account`, `user_id`, `reg_time`, `lv`,",
+                                    "`login_ip`, `login_time_last`, `pro`, `sex`, `cash`, `cash_bind`, `gold_bind` FROM `game_user`",
+                                    " WHERE `user_name` = '", (misc:to_binary(UserName))/binary, "';">>) of
+        {?ok, [[Account, UserId, RegTime, Lv, LoginIp, LastLoginTime, Pro, Sex, Cash, CashBind, GoldBind]]} ->
+            case  player_api:get_player_fields(UserId, [#player.info]) of
+                {?ok,[Info]} ->
+                     GoodsList = get_goods(Info#info.pro,Info#info.sex,GiftType),
+                     {UserName, mail_api:send_system_mail_to_one3(UserName, Title, Content, 0, [], GoodsList, 0, 0, 
+                                                                          0, ?CONST_COST_PLAYER_GM, 0)};
+                _ ->
+                    void
+            end;
+        _ ->
+            void
+    end.
+    
+%% 用来发全服补偿的
+reward_gift(GiftType) ->
+    UserNameList = get_user_name_list(),
+    Title = "Quà nạp đầu",
+    Content = "Quà nạp lần đầu",
+    Fun = fun(UserName) -> 
+        do_reward(UserName,GiftType)
+    end,
+    Result  = lists:map(Fun, UserNameList).
+
+
+get_goods(Pro,Sex,GiftType)->
+    Gift = data_player:get_player_gift(GiftType),
+    GoodsData = Gift#rec_player_gift.goods,
+    Fun         = fun({GoodsId, Bind, Count}, AccGoods) ->
+                          GoodsTemp = goods_api:make(GoodsId, Bind, Count),
+                          GoodsTemp ++ AccGoods;
+                     ({?CONST_SYS_PRO_NULL, ?CONST_SYS_SEX_NULL, GoodsId, Bind, Count}, AccGoods) ->
+                          GoodsTemp = goods_api:make(GoodsId, Bind, Count),
+                          GoodsTemp ++ AccGoods;
+                     ({ProTmp, SexTmp, GoodsId, Bind, Count}, AccGoods) when ProTmp =:= Pro andalso SexTmp =:= Sex ->
+                          GoodsTemp = goods_api:make(GoodsId, Bind, Count),
+                          GoodsTemp ++ AccGoods;
+                     ({?CONST_SYS_PRO_NULL, SexTmp, GoodsId, Bind, Count}, AccGoods) when SexTmp =:= Sex ->
+                          GoodsTemp = goods_api:make(GoodsId, Bind, Count),
+                          GoodsTemp ++ AccGoods;
+                     ({ProTmp, ?CONST_SYS_SEX_NULL, GoodsId, Bind, Count}, AccGoods) when ProTmp =:= Pro ->
+                          GoodsTemp = goods_api:make(GoodsId, Bind, Count),
+                          GoodsTemp ++ AccGoods;
+                     (_, AccGoods) -> AccGoods
+                  end,
+    GoodsList   = lists:foldl(Fun, [], GoodsData),
+    GoodsList.
+
+%% 所有玩家列表
+get_user_name_list() ->
+    case mysql_api:select_execute(<<"SELECT `user_name` FROM `game_user` WHERE `exist` = 1;">>) of
+        {?ok, []} -> [];
+        {?ok, NameList} -> lists:map(fun([Name]) -> Name end, NameList);
+        _Other -> []
+    end.
+
 %% 各种激活码入口
 get_gift(Player, GiftTypeX, Code) ->
+    %%?MSG_ERROR("gift code:~p   ~p  ~n",[GiftTypeX,Code]),
     CodeUpper	= string:to_upper(misc:to_list(Code)),
     case center_api:chk_gift(CodeUpper) of
         {?ok, GiftType, Gift} ->
@@ -67,13 +161,13 @@ get_gift(Player, GiftTypeX, Code) ->
                         ?true ->
                             GiftTypeX
                     end,
-                GiftTypeX2 = GiftTypeX21,
-                    % case GiftTypeX21 < 10 of
-                    %     true ->
-                    %         GiftTypeX21+200;
-                    %     false ->
-                    %         GiftTypeX21
-                    % end,
+                GiftTypeX2 = 
+                    case GiftTypeX21 < 10 of
+                        true ->
+                            GiftTypeX21+200;
+                        false ->
+                            GiftTypeX21
+                    end,
                 GiftTypeX3 = 
                     try
                         ?ok = check_get_gift_code(Player, GiftTypeX2, Code, CodeUpper),
@@ -92,7 +186,7 @@ get_gift(Player, GiftTypeX, Code) ->
                 end
             catch 
                 X:Y ->
-                    % ?MSG_ERROR("1[~p|~p|~n~p]", [X, Y, erlang:get_stacktrace()]),
+                    %%?MSG_ERROR("code 1[~p|~p|~n~p]", [X, Y, erlang:get_stacktrace()]),
                     {?error, ?TIP_COMMON_BAD_SING}
             end
     end.
@@ -106,6 +200,21 @@ get_gift_2(Player, GiftType, Gift, Code) ->
                     PacketGifts		= player_api:msg_sc_get_gift_info((Player3#player.info)#info.gifts),
                     PacketSuccess	= message_api:msg_notice(?TIP_PLAYER_GET_GIFT_SUCCESS),
                     misc_packet:send(Player3#player.net_pid, <<PacketSuccess/binary, PacketGifts/binary>>),
+                    case GiftType of
+                        ?CONST_PLAYER_GIFT_TYPE_MAIDEN ->
+                            TipPacket = message_api:msg_notice(?TIP_PLAYER_GIFT_GOODS, 
+                                                               [{Player#player.user_id,(Player3#player.info)#info.user_name}], 
+                                                               [], 
+                                                               [{?TIP_SYS_COMM,<<"首充礼包">>},{?TIP_SYS_GIFT,misc:to_list(GiftType)}]), 
+                            misc_app:broadcast_world(TipPacket);
+                        _ -> ?ok
+                    end,
+                    {?ok, Player3};
+                {?ok, Player2, PacketBag} ->
+                    {?ok, Player3}  = get_gift_reward_final(Player2, GiftType, Code),
+                    PacketGifts     = player_api:msg_sc_get_gift_info((Player3#player.info)#info.gifts),
+                    PacketSuccess   = message_api:msg_notice(?TIP_PLAYER_GET_GIFT_SUCCESS),
+                    misc_packet:send(Player3#player.net_pid, <<PacketSuccess/binary, PacketBag/binary, PacketGifts/binary>>),
                     case GiftType of
                         ?CONST_PLAYER_GIFT_TYPE_MAIDEN ->
                             TipPacket = message_api:msg_notice(?TIP_PLAYER_GIFT_GOODS, 
@@ -321,7 +430,7 @@ get_code_type_festival_ext(Code) when is_binary(Code) ->
     misc:to_integer(CodeType).
 
 %% 
-% get_gift_reward(Player, Gift, Point) when is_record(Gift, rec_player_gift) ->
+% get_gift_reward(Player, Gift, Point , Code) when  ->
 %     UserId		= Player#player.user_id,
 %     case get_gift_reward_goods(Player, Gift#rec_player_gift.goods, Point) of
 %         {?ok, Player2, PacketBag} ->
@@ -331,19 +440,33 @@ get_code_type_festival_ext(Code) when is_binary(Code) ->
 %             get_gift_reward_gold(UserId, Gift#rec_player_gift.gold, Point),
 %             {?ok, Player3, PacketBag};
 %         {?error, ErrorCode} -> {?error, ErrorCode}
-%     end.
+%     end;
 
 %% -- 越南 改成发邮件
 %% send_interest_mail_to_one2(ReceiveName, Title, Content, MessageId, Content1, GoodsList, Gold, Cash, BCash, Point)
 get_gift_reward(Player, Gift, Point,Code) when is_record(Gift, rec_player_gift) ->
-    Info = Player#player.info,
-    Name = Info#info.user_name,
-    GoodsList = Gift#rec_player_gift.goods,
-    GoodsList2 =lists:flatten([goods_api:make(GoodsId, Bind, Count)||{GoodsId,Bind,Count}<-GoodsList]), 
-    Title = "Phần Thưởng Mã Kích Hoạt",
-    Content = io_lib:format("Đây là Túi quà thông qua Mã Kích Hoạt ~p（~p）", [Gift#rec_player_gift.gift_type,Code]),
-    mail_api:send_interest_mail_to_one2(Name, Title, Content, 0, [],GoodsList2, 0, 0, 0, Point),
-    ?ok.
+    case lists:member(Point,[?CONST_COST_GIFT_TYPE_MAIDEN]) of
+        true ->
+            UserId     = Player#player.user_id,
+            case get_gift_reward_goods(Player, Gift#rec_player_gift.goods, Point) of
+                {?ok, Player2, PacketBag} ->
+                    Player3 = partner_api:give_partner_list(Player2, Gift#rec_player_gift.partner_list, ?CONST_PARTNER_TEAM_IN, 0),
+                    get_gift_reward_cash(UserId, Gift#rec_player_gift.cash, Point),
+                    get_gift_reward_cash_bind(UserId, Gift#rec_player_gift.cash_bind, Point),
+                    get_gift_reward_gold(UserId, Gift#rec_player_gift.gold, Point),
+                    {?ok, Player3, PacketBag};
+                {?error, ErrorCode} -> {?error, ErrorCode}
+            end;
+        false ->
+            Info = Player#player.info,
+            Name = Info#info.user_name,
+            GoodsList = Gift#rec_player_gift.goods,
+            GoodsList2 =lists:flatten([goods_api:make(GoodsId, Bind, Count)||{GoodsId,Bind,Count}<-GoodsList]), 
+            Title = "Phần Thưởng Mã Kích Hoạt",
+            Content = io_lib:format("Đây là Túi quà thông qua Mã Kích Hoạt ~p（~p）", [Gift#rec_player_gift.gift_type,Code]),
+            mail_api:send_interest_mail_to_one2(Name, Title, Content, 0, [],GoodsList2, 0, 0, 0, Point),
+            ?ok
+    end.
 
 
 
