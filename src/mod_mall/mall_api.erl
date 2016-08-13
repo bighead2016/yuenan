@@ -1,4 +1,4 @@
-%% Author: Administrator
+a%% Author: Administrator
 %% Created: 2012-8-1
 %% Description: TODO: Add description to mall_api
 -module(mall_api).

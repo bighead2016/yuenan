@@ -775,7 +775,7 @@ reward(Player, RecPullulation) when is_record(RecPullulation, rec_pullulation)	-
 		{?ok, Player2, GoodsList}	->
 			Info			= Player#player.info,
 			UserName		= Info#info.user_name,
-			ActivityName	= <<"成长礼包">>,
+			ActivityName	= <<"Quà trưởng thành">>,
 			BindCash		= RecPullulation#rec_pullulation.cash_bind,
 			case reward_cash_bind(Player2#player.user_id, UserName, ActivityName, BindCash) of
 				?ok	->
@@ -1182,6 +1182,8 @@ pullulation(Player, Id)	->
 broadcast(_UserName, <<"连续在线礼包">>, _)->
     ?ok;
 broadcast(_UserName, <<"連續線上禮包">>, _)->
+	?ok;
+broadcast(_UserName, <<"Quà online liên tục">>, _)->
     ?ok;
 broadcast(_UserName, _ActivityName, 0)		->
 	?ok;
