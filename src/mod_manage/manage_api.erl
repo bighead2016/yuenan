@@ -230,7 +230,7 @@ get_man_node() ->
     if 
         %%不做分中心服
         Sid =< 100000 ->
-            'sanguo_manage_xxx@192.168.10.111';
+            'sanguo_manage_xxx@10.10.198.61';
 
         Sid =< 10 ->
             'sanguo_manage_xxx@58.218.209.198';

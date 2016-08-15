@@ -922,7 +922,7 @@ do_user_info_detail(UserId, _UserName, _Account,ServId) when UserId =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>}, 
 										   {"desc", Desc}, 
@@ -1007,7 +1007,7 @@ do_user_info_detail(_UserId, UserName, _Account,ServId) when UserName =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>},
 										   {"desc", Desc},
@@ -1092,7 +1092,7 @@ do_user_info_detail(_UserId, _UserName, Account,ServId) when Account =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>}, 
 										   {"desc", Desc}, 
