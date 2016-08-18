@@ -2,10 +2,14 @@
 % 	['src/mod_player/*'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
-% {
-% 	['src/mod_admin/*'],
-% 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
-% }.
+{
+	['src/mod_admin/*'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
+{
+	['src/mod_chat/*'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
 % {
 % 	['src/mod_manage/*'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
@@ -45,10 +49,10 @@
 % 	['src/data/zh_CN/data_monster'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
-% {
-% 	['src/data/zh_CN/data_monster_name'],
-% 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
-% }.
+{
+	['src/data/zh_CN/data_monster_name'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
 
 {
 	['src/data/zh_CN/data_goods_name'],
@@ -67,10 +71,22 @@
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 }.
 {
-	['src/data/zh_CN/data_monster'],
+	['src/mod_manage/*'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
+{
+	['src/mod_manage/*'],
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 }.
 
+{
+	['src/data/zh_CN/data_monster'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
+{
+	['src/data/zh_CN/data_misc'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
 {
 	['src/data/zh_CN/data_welfare'],
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
