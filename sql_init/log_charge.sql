@@ -1,5 +1,7 @@
 select c.*,d.gold_use from(select a.*,b.user_name from(select user_id,account,sum(cash) as gold_recharge  from log_data_recharge group by user_id) a join game_user b on a.user_id = b.user_id) c join
+
 (select user_id,sum(value) as gold_use from log_data_currency where money_type = 1 and type = 2 and value > 0  group by user_id) d on c.user_id = d.user_id
+
 order by gold_recharge desc;
 
 

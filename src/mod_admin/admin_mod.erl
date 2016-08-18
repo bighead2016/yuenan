@@ -431,6 +431,19 @@ do_handle_request(Other, KVList) ->
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%华丽的分割线%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+get_strings(Str) ->
+	List = string:tokens(get_value(Str),","),
+	lists:map(fun(A) -> do_trans_string_to_http(A,"") end,List).
+
+
+
+do_trans_string_to_http([A,B|Else],Result) ->
+	do_trans_string_to_http(Else,Result++[B,A,37]);
+
+do_trans_string_to_http(_,Result)->
+	lists:reverse(Result).
+
+
 do_deposit() ->% pay_num account money cash time pay_pype
 	PayNum		= get_value("pay_num"),
 	Account 	= misc:to_binary(http_uri:decode(get_value("account"))),
@@ -451,7 +464,7 @@ do_deposit(PayNum, Account, Money, Cash, Time, PayType, ServId) ->
 %% 查询符合条件的玩家列表
 do_admin_get_user() ->
 	Action		= misc:to_integer(get_value("action")),
-	UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames	= get_strings("user_names"),
 	UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
 	MinLv		= get_value("min_lv"),
 	MaxLv		= get_value("max_lv"),
@@ -475,7 +488,7 @@ do_admin_send_gift() ->
 		?null ->
 			ets_api:insert(?CONST_ETS_ADMIN_ORDER_MAIL, {OrderId, []}),
 			Action		= misc:to_integer(get_value("action")),
-			UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+			UserNames	= get_strings("user_names"),
 			AccountIds  = string:tokens(http_uri:decode(get_value("account_ids")), ","),
 			UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
 			MinLv		= get_value("min_lv"),
@@ -563,7 +576,7 @@ flush_online_2(Player,{UserId,BCash2}) ->
 %% 查询符合条件的玩家数量
 select_right_users() ->
     Action		= misc:to_integer(get_value("action")),
-    UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+    UserNames	= get_strings("user_names"),
     UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
     MinLv		= get_value("min_lv"),
     MaxLv		= get_value("max_lv"),
@@ -593,7 +606,7 @@ select_right_users() ->
 
 %% 封号
 do_forbid_login() ->
-    UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+    UserNames 	= get_strings("user_names"),
     IsForbid	= get_value("is_forbid"),
     ForbidTime	= get_value("forbid_time"),
     _Reason		= get_value("reason"),
@@ -661,7 +674,7 @@ do_forbid_login2(_UserName, _Type, _ForbidDate) ->
 
 %% T单个玩家下线
 do_kick_user() ->
-	UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames 	= get_strings("user_names"),
 	KickAll		= get_value("kick_all"),
 	_Reason		= get_value("reason"),
 	case KickAll of
@@ -698,7 +711,7 @@ do_kick_user3() ->
 
 %% 禁言
 do_chat_ban() ->
-	UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames 	= get_strings("user_names"),
 	IsBan		= get_value("is_ban"),
 	BanDate		= get_value("ban_date"),
 	_Reason		= get_value("reason"),
@@ -1357,7 +1370,7 @@ do_set_vips() ->
     UserIds     = 
         if
             [] =:= UserIdsFrom ->
-                UserNames   = string:tokens(http_uri:decode(get_value("user_names")), ","),
+                UserNames   = get_strings("user_names"),
                 UserNames2  = lists:map(fun(Y) -> misc:to_binary(http_uri:decode(Y)) end, UserNames),
                 user_id_from_name(UserNames2, UserIdsFrom);
             ?true ->
@@ -1408,7 +1421,7 @@ get_right_user(_UserId, _UserName, Account) when Account =/= ?null andalso Accou
 do_send_mail() ->
     Action		= misc:to_integer(get_value("action")),
     AccountIds  = string:tokens(http_uri:decode(get_value("account_ids")), ","),
-	UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames	= get_strings("user_names"),
     UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
     MinLv		= get_value("min_lv"),
     MaxLv		= get_value("max_lv"),
