@@ -1,6 +1,10 @@
 
 一. 在线人数记录查询：
-select FROM_UNIXTIME(time) as time,player,ip from techcenter_online ;
+select FROM_UNIXTIME(time) as time,player,ip from techcenter_online where time >1471539600;
+
+
+二。gm物品记录
+select FROM_UNIXTIME(time) as time,* from log_data_goods where point = 101 and time >1471539600;
 
 
 二. 每日货币后台记录（总获得，总使用，总剩余）

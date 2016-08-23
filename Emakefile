@@ -50,7 +50,7 @@
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
 {
-	['src/data/zh_CN/data_monster_name'],
+	['src/data/zh_CN/data_new_serv'],
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 }.
 
