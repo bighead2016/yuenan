@@ -18,10 +18,10 @@
 % 	['src/mod_market/*'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
-% {
-% 	['src/mod_mail/*'],
-% 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
-% }.
+{
+	['src/mod_act/*'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
 
 % {
 % 	['src/mod_welfare/*'],
@@ -37,10 +37,10 @@
 % }.
 
 
-% {
-% 	['src/data/zh_CN/data_welfare'],
-% 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
-% }.
+{
+	['src/data/zh_CN/data_welfare'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
 % {
 % 	['src/data/zh_CN/data_monster'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
@@ -49,8 +49,11 @@
 % 	['src/data/zh_CN/data_monster_name'],
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
-
 {
-	['src/data/zh_CN/data_goods_name'],
+	['src/data/zh_CN/data_yunying_activity'],
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 }.
+% {
+% 	['src/data/zh_CN/data_goods_name'],
+% 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+% }.
