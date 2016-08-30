@@ -1,4 +1,4 @@
-%% Author: Administrator
+g%% Author: Administrator
 %% Created: 2012-7-16
 %% Description: TODO: Add description to mail_api
 -module(mail_api).

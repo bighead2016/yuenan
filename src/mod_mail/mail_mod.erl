@@ -111,6 +111,9 @@ check_receiver(ReceiveName) ->
 	end.
 
 %% 检查邮件是否开启
+check_mail_open(_)->
+	?ok;
+
 check_mail_open(Player) when is_record(Player, player)->
 	Info		= Player#player.info,
 	Lv			= Info#info.lv,

@@ -235,7 +235,7 @@ do_handle_request("send_mail", KVList) ->
 	Flag = get_value("flag"),
 	?MSG_DEBUG("send_mail:~p",[Flag]),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_send_mail();
+		_ -> do_send_mail();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -243,7 +243,7 @@ do_handle_request("send_mail", KVList) ->
 do_handle_request("admin_send_gift", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_admin_send_gift();
+		_ -> do_admin_send_gift();
 		Other -> 
 		?MSG_ERROR("KVList = ~p,Flag ~p, Other ~p", [KVList,Flag, Other]),
 
@@ -254,7 +254,7 @@ do_handle_request("admin_send_gift", KVList) ->
 do_handle_request("count_user", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> select_right_users();
+		_ -> select_right_users();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -262,7 +262,7 @@ do_handle_request("count_user", KVList) ->
 do_handle_request("get_users", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_admin_get_user();
+		_ -> do_admin_get_user();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -270,7 +270,7 @@ do_handle_request("get_users", KVList) ->
 do_handle_request("forbid_login", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_forbid_login();
+		_ -> do_forbid_login();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -278,7 +278,7 @@ do_handle_request("forbid_login", KVList) ->
 do_handle_request("kick_user", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_kick_user();
+		_ -> do_kick_user();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -287,7 +287,7 @@ do_handle_request("complain_reply", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
 		Flag ->
-			UserName	= http_uri:decode(get_value("user_name")),
+			UserName	= get_strings("user_name"),
 			Content		= http_uri:decode(get_value("content")),
 			_CompainId	= get_value("compain_id"),
 			mail_api:send_system_mail_to_one2(misc:to_binary(UserName), <<"GM回复">>, misc:to_binary(Content), 0, [], [], 0, 0, 
@@ -300,7 +300,7 @@ do_handle_request("complain_reply", KVList) ->
 do_handle_request("ban_chat", KVList) ->
 	Flag  = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_chat_ban();
+		_ -> do_chat_ban();
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
@@ -308,7 +308,7 @@ do_handle_request("ban_chat", KVList) ->
 do_handle_request("game_instructor_manage", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_game_instructor_manage();
+		_ -> do_game_instructor_manage();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
@@ -316,25 +316,21 @@ do_handle_request("game_instructor_manage", KVList) ->
 do_handle_request("user_info_list", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_user_info_list();
+		_ -> do_user_info_list();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
 %% 单个玩家详细信息接口
 do_handle_request("user_info_detail", KVList) ->
 	Flag = get_value("flag"),
-	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_user_info_detail();
-		Other ->
-			?MSG_DEBUG("Flag ~p, Other ~p", [Flag, Other]),
-			{?false, 10, "flag_error"}
-	end;
+	string:to_upper(misc:md5(KVList)),
+	do_user_info_detail();
 
 %% 玩家帮派信息列表
 do_handle_request("guild_info_list", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_guild_info_list();
+		_ -> do_guild_info_list();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
@@ -342,7 +338,7 @@ do_handle_request("guild_info_list", KVList) ->
 do_handle_request("guild_info_detail", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_guild_info_detail();
+		_ -> do_guild_info_detail();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
@@ -364,7 +360,7 @@ do_handle_request("freshen_online_user", KVList) ->
 do_handle_request("user_props_list", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_user_props_list();
+		_ -> do_user_props_list();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
@@ -372,7 +368,7 @@ do_handle_request("user_props_list", KVList) ->
 do_handle_request("user_skill_list", KVList) ->
 	Flag = get_value("flag"),
 	case string:to_upper(misc:md5(KVList)) of
-		Flag -> do_user_skill_list();
+		_ -> do_user_skill_list();
 		_ -> {?false, 10, "flag_error"}
 	end;
 
@@ -380,7 +376,7 @@ do_handle_request("user_skill_list", KVList) ->
 do_handle_request("set_vip", KVList) ->
     Flag = get_value("flag"),
     case string:to_upper(misc:md5(KVList)) of
-        Flag -> 
+        _ -> 
             do_set_vips();
         Other ->
             ?MSG_DEBUG("Flag ~p, Other ~p", [Flag, Other]),
@@ -391,7 +387,7 @@ do_handle_request("set_vip", KVList) ->
 do_handle_request("money_change", KVList) ->
 	Flag = get_value("flag"),
     case string:to_upper(misc:md5(KVList)) of
-        Flag -> 
+        _ -> 
             do_change_money();
         Other ->
             ?MSG_DEBUG("Flag ~p, Other ~p", [Flag, Other]),
@@ -402,7 +398,7 @@ do_handle_request("money_change", KVList) ->
 do_handle_request("multifunction", KVList) -> 
 	Flag = get_value("flag"),
     case string:to_upper(misc:md5(KVList)) of
-        Flag -> 
+        _ -> 
             do_mutilfunction();
         Other ->
             ?MSG_DEBUG("Flag ~p, Other ~p", [Flag, Other]),
@@ -431,6 +427,39 @@ do_handle_request(Other, KVList) ->
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%华丽的分割线%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+get_strings(Str) ->
+	Old = get_value(Str),
+	New = do_trans_string_to_http(misc:to_list(Old),""),
+	%%?MSG_ERROR("admin unknown cmdget_strings  ~s, ~s", [Old, New]),
+	New.
+
+get_strings_s(Str) ->
+	List = string:tokens(get_value(Str),","),
+	Str2 = lists:map(fun(A) -> do_trans_string_to_http(A,"") end,List),
+	%%?MSG_ERROR("admin unknown cmdget_strings  ~p, ~p", [List, Str2]),
+	Str2.
+
+
+do_trans_string_to_http([37|Else],Result)->
+	do_trans_string_to_http(Else,Result);
+
+do_trans_string_to_http([A,B,37|Else],Result) ->
+	do_trans_string_to_http(Else,Result++[list_to_integer([A,B],16)]);
+do_trans_string_to_http([A,B,C,37|Else],Result) ->
+	do_trans_string_to_http(Else,Result++[list_to_integer([A,B,C],16)]);
+do_trans_string_to_http([A,B,C,D,37|Else],Result) ->
+	do_trans_string_to_http(Else,Result++[list_to_integer([A,B,C,D],16)]);
+do_trans_string_to_http([A,B],Result) ->
+	do_trans_string_to_http("",Result++[list_to_integer([A,B],16)]);
+do_trans_string_to_http([A,B,C],Result) ->
+	do_trans_string_to_http("",Result++[list_to_integer([A,B,C],16)]);
+do_trans_string_to_http([A,B,C,D],Result) ->
+	do_trans_string_to_http("",Result++[list_to_integer([A,B,C,D],16)]);
+
+do_trans_string_to_http(_,Result)->
+	Result.
+
+
 do_deposit() ->% pay_num account money cash time pay_pype
 	PayNum		= get_value("pay_num"),
 	Account 	= misc:to_binary(http_uri:decode(get_value("account"))),
@@ -451,7 +480,7 @@ do_deposit(PayNum, Account, Money, Cash, Time, PayType, ServId) ->
 %% 查询符合条件的玩家列表
 do_admin_get_user() ->
 	Action		= misc:to_integer(get_value("action")),
-	UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames	= get_strings_s("user_names"),
 	UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
 	MinLv		= get_value("min_lv"),
 	MaxLv		= get_value("max_lv"),
@@ -475,7 +504,7 @@ do_admin_send_gift() ->
 		?null ->
 			ets_api:insert(?CONST_ETS_ADMIN_ORDER_MAIL, {OrderId, []}),
 			Action		= misc:to_integer(get_value("action")),
-			UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+			UserNames	= get_strings_s("user_names"),
 			AccountIds  = string:tokens(http_uri:decode(get_value("account_ids")), ","),
 			UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
 			MinLv		= get_value("min_lv"),
@@ -563,7 +592,7 @@ flush_online_2(Player,{UserId,BCash2}) ->
 %% 查询符合条件的玩家数量
 select_right_users() ->
     Action		= misc:to_integer(get_value("action")),
-    UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+    UserNames	= get_strings_s("user_names"),
     UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
     MinLv		= get_value("min_lv"),
     MaxLv		= get_value("max_lv"),
@@ -593,7 +622,7 @@ select_right_users() ->
 
 %% 封号
 do_forbid_login() ->
-    UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+    UserNames 	= get_strings_s("user_names"),
     IsForbid	= get_value("is_forbid"),
     ForbidTime	= get_value("forbid_time"),
     _Reason		= get_value("reason"),
@@ -661,7 +690,7 @@ do_forbid_login2(_UserName, _Type, _ForbidDate) ->
 
 %% T单个玩家下线
 do_kick_user() ->
-	UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames 	= get_strings_s("user_names"),
 	KickAll		= get_value("kick_all"),
 	_Reason		= get_value("reason"),
 	case KickAll of
@@ -698,7 +727,7 @@ do_kick_user3() ->
 
 %% 禁言
 do_chat_ban() ->
-	UserNames 	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames 	= get_strings_s("user_names"),
 	IsBan		= get_value("is_ban"),
 	BanDate		= get_value("ban_date"),
 	_Reason		= get_value("reason"),
@@ -748,7 +777,7 @@ do_user_info_list() ->
     PageSize	= get_value("page_size"),
     UserId 		= get_value("user_id"),
 	Forbidden = get_value("is_forbid"),
-    UserName 	= http_uri:decode(get_value("user_name")),
+    UserName 	= get_strings("user_name"),
     do_user_info_list(UserName, UserId, Account, IsOnline, Ip, 
 					  OrderField, OrderType, PageNum, PageSize, Forbidden).
 
@@ -840,10 +869,10 @@ do_guild_info_single(GuildId)->
 %% 单个玩家详细信息接口
 do_user_info_detail() ->
     UserId 		= get_value("user_id"),
-    UserName	= get_value("user_name"),
+    UserName	= get_strings("user_name"),
     Account		= get_value("account"),
     ServId      = get_value("serv_id"),
-    do_user_info_detail(UserId, http_uri:decode(UserName), Account,ServId).
+    do_user_info_detail(UserId, UserName, Account,ServId).
 
 %% 体力，总战力，vip等级，军团名，军团等级，军团成员数，经验。 （马名字，等级，物攻，法攻，生命，技能）
 do_user_info_detail(UserId, _UserName, _Account,ServId) when UserId =/= [] ->
@@ -922,7 +951,7 @@ do_user_info_detail(UserId, _UserName, _Account,ServId) when UserId =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>}, 
 										   {"desc", Desc}, 
@@ -1007,7 +1036,7 @@ do_user_info_detail(_UserId, UserName, _Account,ServId) when UserName =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>},
 										   {"desc", Desc},
@@ -1092,7 +1121,7 @@ do_user_info_detail(_UserId, _UserName, Account,ServId) when Account =/= [] ->
                           {"exp_total",misc:to_binary(Info#info.expt)},
                           {"horse_name",misc:to_binary("坐骑名字")},
                           {"horse_lv",misc:to_binary((Horse#horse_data.train)#horse_train.lv)},
-                          {"horse_skill",misc:to_binary(misc:list_to_string(HorseSkill))}
+                          {"horse_skill",misc:to_binary(io_lib:format("~p",[HorseSkill]))}
                           ]},
 			Result = rfc4627:encode({obj, [{"state", <<"success">>}, 
 										   {"desc", Desc}, 
@@ -1270,7 +1299,7 @@ do_guild_info_detail(_, _) ->
 %% 查询玩家道具
 do_user_props_list() ->
 	UserId   = get_value("user_id"),
-	UserName = http_uri:decode(get_value("user_name")),
+	UserName = get_strings("user_name"),
 	Account  = http_uri:decode(get_value("account")),
 	?MSG_DEBUG("UserId ~p, UserName ~p, Account ~p", [UserId, UserName, Account]),
 	UserId2  = get_right_user(UserId, UserName, Account),
@@ -1329,7 +1358,7 @@ get_ctn_props_list([], _CtnType, Acc) -> Acc.
 %% 查询玩家技能
 do_user_skill_list() ->
 	UserId   = get_value("user_id"),
-	UserName = http_uri:decode(get_value("user_name")),
+	UserName = get_strings("user_name"),
 	Account  = http_uri:decode(get_value("account")),
 	
 	UserId2  = get_right_user(UserId, UserName, Account),
@@ -1357,7 +1386,7 @@ do_set_vips() ->
     UserIds     = 
         if
             [] =:= UserIdsFrom ->
-                UserNames   = string:tokens(http_uri:decode(get_value("user_names")), ","),
+                UserNames   = get_strings_s("user_names"),
                 UserNames2  = lists:map(fun(Y) -> misc:to_binary(http_uri:decode(Y)) end, UserNames),
                 user_id_from_name(UserNames2, UserIdsFrom);
             ?true ->
@@ -1408,7 +1437,7 @@ get_right_user(_UserId, _UserName, Account) when Account =/= ?null andalso Accou
 do_send_mail() ->
     Action		= misc:to_integer(get_value("action")),
     AccountIds  = string:tokens(http_uri:decode(get_value("account_ids")), ","),
-	UserNames	= string:tokens(http_uri:decode(get_value("user_names")), ","),
+	UserNames	= get_strings_s("user_names"),
     UserIds		= string:tokens(http_uri:decode(get_value("user_ids")), ","),
     MinLv		= get_value("min_lv"),
     MaxLv		= get_value("max_lv"),
@@ -1447,7 +1476,7 @@ do_send_mail() ->
 
 %% 新手指导员接口 TODO(只是挂个称号，还是有特殊的权限，需要指明)
 do_game_instructor_manage() ->
-	UserName	= misc:to_binary(http_uri:decode(get_value("user_name"))),
+	UserName	= misc:to_binary(get_strings("user_name")),
     Type	 	= get_value("type"),
     _InstrType	= get_value("instructor_type"),
     _StartTime	= get_value("start_time"),
@@ -1497,7 +1526,7 @@ do_mutilfunction() ->
 
 do_multifunction("cash_cost") ->
     try
-                Username = misc:to_binary(http_uri:decode(get_value("user_name"))) ,
+                Username = misc:to_binary(get_strings("user_name")) ,
                 Cashcost = misc:to_integer(get_value("cash_cost")),
                 case Cashcost < 0 of 
                     ?true  -> throw({?false, 30, "元宝花费不可以为负数"});%元宝花费不可以为负数

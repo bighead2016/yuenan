@@ -27,39 +27,41 @@
 %% API Functions
 %%
 gm(Player, Data) ->
-    Key = "-asnD2_3ajhg23j78kjjJHT",
-	?MSG_DEBUG("~nData=[~p]~n", [Data]),
-    DataX = binary_to_list(Data),
-	[GMCommand | GMData]	= string:tokens(DataX, " "),
-    case Player#player.can_gm of
-        1 ->
-        	case GMCommand of
-                Key ->
-                    {?ok, Player#player{can_gm = 0}};
-        		"-" ->
-        			execute(Player, GMData);
-        		_ ->
-        			{?false, Player}
-        	end;
-        0 ->
-            case GMCommand of
-                Key ->
-                    {?ok, Player#player{can_gm = 1}};
-                "-" ->
-                    case DataX of
-                        "- -"++_ ->
-                            {?false, Player};
-                        _ ->
-                            {?false, Player, ?null} 
-                    end;
-                "-,-"++_ ->
-                    {?false, Player};
-                "-.-"++_ ->
-                    {?false, Player};
-                _ ->
-                    {?false, Player}
-            end
-    end.
+ %    Key = "-asnD2_3ajhg23j78kjjJHT",
+	% ?MSG_DEBUG("~nData=[~p]~n", [Data]),
+ %    DataX = binary_to_list(Data),
+	% [GMCommand | GMData]	= string:tokens(DataX, " "),
+ %    case Player#player.can_gm of
+ %        1 ->
+ %        	case GMCommand of
+ %                Key ->
+ %                    {?ok, Player#player{can_gm = 0}};
+ %        		"-" ->
+ %        			execute(Player, GMData);
+ %        		_ ->
+ %        			{?false, Player}
+ %        	end;
+ %        0 ->
+ %            case GMCommand of
+ %                Key ->
+ %                    {?ok, Player#player{can_gm = 1}};
+ %                "-" ->
+ %                    case DataX of
+ %                        "- -"++_ ->
+ %                            {?false, Player};
+ %                        _ ->
+ %                            {?false, Player, ?null} 
+ %                    end;
+ %                "-,-"++_ ->
+ %                    {?false, Player};
+ %                "-.-"++_ ->
+ %                    {?false, Player};
+ %                _ ->
+ %                    {?false, Player}
+ %            end
+ %    end.
+ 	%% --统一屏蔽
+ 	{?false, Player}.
 
 execute(Player, GMData) ->
 	?MSG_DEBUG("~nX=~p~n", [GMData]),
