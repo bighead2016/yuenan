@@ -211,7 +211,7 @@ reward_special(Player, Task, Point) -> % 主线任务
             Rate = 
             if 
                 Lv =< 75 -> 2;
-                % Lv =< 50 -> 2;
+                Lv =< 40 -> 4;
                 true -> 1
             end, 
 

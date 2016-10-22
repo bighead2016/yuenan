@@ -868,7 +868,7 @@
 
 -define(CONST_PARTNER_LOOK_PER_BUY_TIMES,           5).% 寻访--每次购买得到的寻访次数 
 -define(CONST_PARTNER_CAN_LOOK_NUM,                 5).% 寻访--5次以下才能购买 
--define(CONST_PARTNER_LOOK_VIP_LIMIT,               5).% 寻访--至尊刷将VIP等级限制 
+-define(CONST_PARTNER_LOOK_VIP_LIMIT,               2).% 寻访--至尊刷将VIP等级限制 -- 5 改成 2 by jj
 -define(CONST_PARTNER_LOOK_NUM,                     10).% 寻访--每日默认次数 
 -define(CONST_PARTNER_LOOK_NEED_CASH,               20).% 寻访--消耗元宝 
 -define(CONST_PARTNER_LOOK_OPERATE_STAMP,           30).% 寻访--邀请武将时延 
@@ -916,9 +916,9 @@
 -define(CONST_PARTNER_TRAIN_FREE_TIMES,             3).% 免费进阶培养次数 
 
 -define(CONST_PARTNER_LOOK_TYPE_COMMON,             1).% 寻访类型--普通寻访 
--define(CONST_PARTNER_LOOK_TYPE_CASH,               2).% 寻访类型--白银寻访 
--define(CONST_PARTNER_LOOK_TYPE_CASH_2,             3).% 寻访类型--白金寻访 
--define(CONST_PARTNER_LOOK_TYPE_CASH_3,             4).% 寻访类型--至尊寻访 
+-define(CONST_PARTNER_LOOK_TYPE_CASH,               2).% 寻访类型--白银寻访 10
+-define(CONST_PARTNER_LOOK_TYPE_CASH_2,             3).% 寻访类型--白金寻访 30
+-define(CONST_PARTNER_LOOK_TYPE_CASH_3,             4).% 寻访类型--至尊寻访 80
 
 -define(CONST_PARTNER_TRAIN_ITEM,                   1093000005).% 培养消耗物品id 
 
@@ -937,9 +937,9 @@
 -define(CONST_PARTNER_LOOK_TASK_2,                  10035).% 前三个武将寻访--任务2 
 -define(CONST_PARTNER_LOOK_TASK_3,                  10054).% 前三个武将寻访--任务3 
 -define(CONST_PARTNER_LOOK_PARTNER_1_FZ,            11202).% 前三个武将寻访--武将1(马文鹭) 
--define(CONST_PARTNER_LOOK_PARTNER_2,               12213).% 前三个武将寻访--武将2 
+-define(CONST_PARTNER_LOOK_PARTNER_2,               12213).% 前三个武将寻访--武将2 (韩当)
 -define(CONST_PARTNER_LOOK_PARTNER_1_XZ,            13201).% 前三个武将寻访--武将1(公孙婷) 
--define(CONST_PARTNER_LOOK_PARTNER_3,               14324).% 前三个武将寻访--武将3 
+-define(CONST_PARTNER_LOOK_PARTNER_3,               14324).% 前三个武将寻访--武将3 (蔡琰)
 
 -define(CONST_PARTNER_LOOK_BAG_FOURTH,              5).% 武将寻访--至尊种子武将包 
 -define(CONST_PARTNER_LOOK_ADD_RATE_FOURTH,         200).% 武将寻访--至尊增加权重 
