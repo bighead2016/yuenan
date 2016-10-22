@@ -919,6 +919,10 @@
 -define(CONST_PARTNER_LOOK_TYPE_CASH,               2).% 寻访类型--白银寻访 10
 -define(CONST_PARTNER_LOOK_TYPE_CASH_2,             3).% 寻访类型--白金寻访 30
 -define(CONST_PARTNER_LOOK_TYPE_CASH_3,             4).% 寻访类型--至尊寻访 80
+-define(CONST_PARTNER_LOOK_TYPE_ITEM,               5).% 寻访类型--白银寻访 物品 10
+-define(CONST_PARTNER_LOOK_TYPE_ITEM_2,             6).% 寻访类型--白金寻访 30
+-define(CONST_PARTNER_LOOK_TYPE_ITEM_3,             7).% 寻访类型--至尊寻访 80
+
 
 -define(CONST_PARTNER_TRAIN_ITEM,                   1093000005).% 培养消耗物品id 
 

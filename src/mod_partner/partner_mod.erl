@@ -1266,7 +1266,7 @@ lookfor_partner(Player, Type, IsUse, IsCashBind) ->
 		if 
 		   TeamNum >= TeamMax -> {?error, ?TIP_PARTNER_TEAM_OVER_MAX};%% 队伍上限
 		   LenLooked =/= 0 -> {?error, ?TIP_PARTNER_LOOKED_NOT_TREAT};
-		   IsCashBind =:= ?CONST_SYS_TRUE andalso Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_3 andalso VipLv < ?CONST_PARTNER_LOOK_VIP_LIMIT ->
+		   IsCashBind =:= ?CONST_SYS_TRUE andalso (Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_3 orelse Type =:= ?CONST_PARTNER_LOOK_TYPE_ITEM_3) andalso VipLv < ?CONST_PARTNER_LOOK_VIP_LIMIT ->
 			   {?error, ?TIP_PARTNER_VIP_NOT_ENOUGH};
 			?true ->
 				lookfor_partner_ext(Player, Type, IsUse, IsCashBind)
@@ -1306,34 +1306,38 @@ lookfor_partner_ext(Player, Type, IsUse, IsCashBind) ->
 			end
 	end.
 
-update_look_bag(Player, Type, BagId) when Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_3 ->
-	LookforData 	= Player#player.lookfor,
-	LookBagList		= LookforData#lookfor_data.look_bag_list,
-	LookBagList2 	= 
-		case lists:keyfind(Type, 1, LookBagList) of
-			{Type, Times} ->
-				case BagId =:= ?CONST_PARTNER_LOOK_BAG_FOURTH of
-					?true ->
-						NewTuple	= {Type, 0},
-						lists:keyreplace(Type, 1, LookBagList, NewTuple);
-					?false ->
-						NewTuple	= {Type, Times + 1},
-						lists:keyreplace(Type, 1, LookBagList, NewTuple)
-				end;
-			_ ->
-				case BagId =:= ?CONST_PARTNER_LOOK_BAG_FOURTH of
-					?true ->
-						LookBagList;
-					?false ->
-						NewTuple	= {Type, 1},
-						[NewTuple|LookBagList]
-				end
-		end,
-	LookforData2	= LookforData#lookfor_data{look_bag_list = LookBagList2},
-	Player2			= Player#player{lookfor = LookforData2},
-	{?ok, Player2};
-update_look_bag(Player, _Type, _BagId) ->
-	{?ok, Player}.
+update_look_bag(Player, Type, BagId) ->
+	case Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_3 orelse Type =:= ?CONST_PARTNER_LOOK_TYPE_ITEM_3 of
+		true ->
+			LookforData 	= Player#player.lookfor,
+			LookBagList		= LookforData#lookfor_data.look_bag_list,
+			LookBagList2 	= 
+				case lists:keyfind(Type, 1, LookBagList) of
+					{Type, Times} ->
+						case BagId =:= ?CONST_PARTNER_LOOK_BAG_FOURTH of
+							?true ->
+								NewTuple	= {Type, 0},
+								lists:keyreplace(Type, 1, LookBagList, NewTuple);
+							?false ->
+								NewTuple	= {Type, Times + 1},
+								lists:keyreplace(Type, 1, LookBagList, NewTuple)
+						end;
+					_ ->
+						case BagId =:= ?CONST_PARTNER_LOOK_BAG_FOURTH of
+							?true ->
+								LookBagList;
+							?false ->
+								NewTuple	= {Type, 1},
+								[NewTuple|LookBagList]
+						end
+				end,
+			LookforData2	= LookforData#lookfor_data{look_bag_list = LookBagList2},
+			Player2			= Player#player{lookfor = LookforData2},
+			{?ok, Player2};
+		false ->
+			{?ok, Player}
+	end.
+	
 	
 %% 获取增加权重
 get_look_bag(Player, Type) ->
@@ -1407,7 +1411,13 @@ check_cost(Player, Type, IsUse, IsCashBind) ->
 			?CONST_PARTNER_LOOK_TYPE_CASH_2 ->
 				?CONST_PARTNER_LOOK_USE_CASH_2;
 			?CONST_PARTNER_LOOK_TYPE_CASH_3 ->
-				?CONST_PARTNER_LOOK_USE_CASH_3
+				?CONST_PARTNER_LOOK_USE_CASH_3;
+			?CONST_PARTNER_LOOK_TYPE_ITEM ->
+				0;
+			?CONST_PARTNER_LOOK_TYPE_ITEM_2 ->
+				0;
+			?CONST_PARTNER_LOOK_TYPE_ITEM_3 ->
+				0;
 		end,
 	case Type of
 		?CONST_PARTNER_LOOK_TYPE_COMMON ->
@@ -1419,6 +1429,19 @@ check_cost(Player, Type, IsUse, IsCashBind) ->
 				_ -> %% 不适用阅历
 					{?ok, Player2}
 			end;
+		?CONST_PARTNER_LOOK_TYPE_ITEM ->
+			{?ok, Bag2} 	= check_goods(UserId, Bag, ?CONST_PARTNER_LOOK_USE_GOODS, 10),
+			Player2			= Player#player{bag = Bag2},
+			{?ok, Player2};
+			
+		?CONST_PARTNER_LOOK_TYPE_ITEM_2 ->
+			{?ok, Bag2} 	= check_goods(UserId, Bag, ?CONST_PARTNER_LOOK_USE_GOODS, 30),
+			Player2			= Player#player{bag = Bag2},
+			{?ok, Player2};
+		?CONST_PARTNER_LOOK_TYPE_ITEM_3 ->
+			{?ok, Bag2} 	= check_goods(UserId, Bag, ?CONST_PARTNER_LOOK_USE_GOODS, 80),
+			Player2			= Player#player{bag = Bag2},
+			{?ok, Player2};
 		?CONST_PARTNER_LOOK_TYPE_CASH_3 -> %% 至尊元宝寻访
 			case player_vip_api:can_cash_recruit(VipLv) of
 				?CONST_SYS_TRUE ->
@@ -1455,7 +1478,7 @@ check_cost(Player, Type, IsUse, IsCashBind) ->
 check_goods(UserId, Bag, GoodsId, Count)  ->
     case ctn_bag2_api:get_by_id_not_send(UserId, Bag, GoodsId, Count) of
         {?ok, Bag2, _GoodsList, Packet} ->
-            admin_log_api:log_goods(UserId, ?CONST_SYS_GOODS_USE, ?CONST_COST_PARTNER_LOOKFOR, GoodsId, 1, misc:seconds()),
+            admin_log_api:log_goods(UserId, ?CONST_SYS_GOODS_USE, ?CONST_COST_PARTNER_LOOKFOR, GoodsId, Count, misc:seconds()),
              misc_packet:send(UserId, Packet),
 			{?ok, Bag2};
         {?error, _ErrorCode} ->
@@ -1664,7 +1687,19 @@ get_look_partner_id(Player, Type, IsUse, PartnerIdList) ->
 									 BaseLookfor#rec_partner_lookfor.cash_rate_3 + AddRate;
 								 ?false ->
 									 BaseLookfor#rec_partner_lookfor.cash_rate_3
-							 end
+							 end;
+						?CONST_PARTNER_LOOK_TYPE_ITEM -> %% 元宝寻访
+							 BaseLookfor#rec_partner_lookfor.cash_rate_1;
+						 ?CONST_PARTNER_LOOK_TYPE_ITEM_2 ->
+							 BaseLookfor#rec_partner_lookfor.cash_rate_2;
+						 ?CONST_PARTNER_LOOK_TYPE_ITEM_3 ->
+							 case Item =:= ?CONST_PARTNER_LOOK_BAG_FOURTH of
+								 ?true ->
+									 AddRate	= NewTimes * ?CONST_PARTNER_LOOK_ADD_RATE_FOURTH,
+									 BaseLookfor#rec_partner_lookfor.cash_rate_3 + AddRate;
+								 ?false ->
+									 BaseLookfor#rec_partner_lookfor.cash_rate_3
+							 end;
 					 end,
 				 NewRate = AccRate + Rate,
 				 NewAccOut = [{BaseLookfor#rec_partner_lookfor.bag_id, NewRate} | AccOut],
