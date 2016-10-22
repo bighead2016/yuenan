@@ -192,7 +192,11 @@ make_sql_some_3(Field, Value, <<"longblob">>, X, OldField, OldSql) ->
                 try
                     {misc:encode(misc:decode(V)), <<" '">>, <<"' ">>}
                 catch _:_ ->
-                    {erlang:term_to_binary(erlang:binary_to_term(V)), <<" '">>, <<"' ">>}
+                    try
+                        {erlang:term_to_binary(erlang:binary_to_term(V)), <<" '">>, <<"' ">>}
+                    catch _:_ ->
+                        {V, <<" '">>, <<"' ">>}
+                    end
                 end;
             true ->
                 {V, BorderL, BorderR}

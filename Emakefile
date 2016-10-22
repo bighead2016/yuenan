@@ -3,7 +3,11 @@
 % 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 % }.
 {
-	['src/mod_admin/*'],
+	['src/mod_guild_pvp/*'],
+	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
+}.
+{
+	['src/mod_combine/*'],
 	[encrypt_debug_info, bin_opt_info, {outdir, "ebin"}, {i, "include"}, {i, "include/hrl"}]
 }.
 {

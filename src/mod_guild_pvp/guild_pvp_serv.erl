@@ -1141,6 +1141,15 @@ save_map_info() ->
     end.
 
 get_show_list(MemberIdList) ->
+    FilterFun = fun(Id) ->
+        case player_api:get_player_fields(Id,[#player.guild]) of
+            {ok, [Guild]} ->
+                true;
+            _ ->
+                false
+        end
+    end,
+
     SortFun =
         fun(Id1, Id2) ->
             {ok, [Guild1]} = player_api:get_player_fields(Id1,[#player.guild]),
@@ -1156,7 +1165,7 @@ get_show_list(MemberIdList) ->
                     false
             end
         end,
-    SortedIdList = lists:sort(SortFun, MemberIdList),
+    SortedIdList = lists:sort(SortFun, lists:filter(FilterFun,MemberIdList)),
     lists:sublist(SortedIdList, 3).
 
 save_map_info([], _Name, _LeaderId) ->
