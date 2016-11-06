@@ -239,6 +239,19 @@ do_handle_request("send_mail", KVList) ->
 		_Other -> {?false, 10, "flag_error"}
 	end;
 
+
+
+%% 发送邮件
+do_handle_request("open_boss", KVList) ->
+	Flag = get_value("flag"),
+	?MSG_DEBUG("open_boss:~p",[Flag]),
+	case string:to_upper(misc:md5(KVList)) of
+		_ -> do_open_boss();
+		_Other -> {?false, 10, "flag_error"}
+	end;
+
+
+
 %% 道具/货币接口 通过邮件发送
 do_handle_request("admin_send_gift", KVList) ->
 	Flag = get_value("flag"),
@@ -1432,6 +1445,39 @@ get_right_user(_UserId, _UserName, Account) when Account =/= ?null andalso Accou
 		{?ok, UserId} -> UserId;
 		{?error, _Error} -> 0
 	end.
+
+
+do_open_boss() ->
+	Type		= misc:to_integer(get_value("type")),
+	ID      = misc:to_integer(get_value("id")),
+	BossID = 
+	case ID of 
+		1 ->
+			10002;
+		2 ->
+			10010;
+		3 ->
+			10020;
+		4 ->
+			10030;
+		_ ->
+			10010;
+	end,
+
+
+	case Type of 
+		1 ->
+			boss_api:on([?CONST_SCHEDULE_ACTIVITY_EARLY_BOSS]),
+            active_api:active_begin(?CONST_ACTIVE_BOSS1, ?CONST_ACTIVE_STATE_ON, boss_api, on, [BossID], 34604),
+		2 ->
+			active_api:active_end(?CONST_ACTIVE_BOSS1, ?CONST_ACTIVE_STATE_OFF, boss_api, off, [BossID], 34605,0),
+			{?ok, Player};
+		_ ->
+			void
+	end.
+
+
+
 
 %% 发送邮件
 do_send_mail() ->
