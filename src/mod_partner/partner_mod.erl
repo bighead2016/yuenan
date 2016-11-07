@@ -1417,7 +1417,7 @@ check_cost(Player, Type, IsUse, IsCashBind) ->
 			?CONST_PARTNER_LOOK_TYPE_ITEM_2 ->
 				0;
 			?CONST_PARTNER_LOOK_TYPE_ITEM_3 ->
-				0;
+				0
 		end,
 	case Type of
 		?CONST_PARTNER_LOOK_TYPE_COMMON ->
@@ -1569,21 +1569,22 @@ get_canlook_list(Player, Type) ->
 		   TaskFlag2 =:= ?true andalso Type =:= ?CONST_PARTNER_LOOK_TYPE_COMMON
 			   andalso Lookfor#lookfor_data.look_flag_2 =:= ?true ->
 			   TempLookfor	= Lookfor#lookfor_data{look_flag_2 = ?false},
-			   Id	= 
-				   if Pro =:= ?CONST_SYS_PRO_XZ ->
-						   ?CONST_PARTNER_LOOK_PARTNER_1_FZ;
-					  ?true ->
-						  ?CONST_PARTNER_LOOK_PARTNER_1_XZ
-				   end,
+			   % Id	= 
+				  %  if Pro =:= ?CONST_SYS_PRO_XZ ->
+						%    ?CONST_PARTNER_LOOK_PARTNER_1_FZ;
+					 %  ?true ->
+						%   ?CONST_PARTNER_LOOK_PARTNER_1_XZ
+				  %  end,
+			   Id = random_yellow(),
 			   TempList = [Id],
 			   FrontThree	= ?CONST_SYS_TRUE,
 			   {TempLookfor, TempList, FrontThree};
-%% 		   TaskFlag3 =:= ?true andalso Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_2
-%% 			   andalso Lookfor#lookfor_data.look_flag_3 =:= ?true ->
-%% 			   TempLookfor	= Lookfor#lookfor_data{look_flag_3 = ?false},
-%% 			   TempList = [?CONST_PARTNER_LOOK_PARTNER_3],
-%% 			   FrontThree	= ?CONST_SYS_TRUE,
-%% 			   {TempLookfor, TempList, FrontThree};
+		   (Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH_2 or Type =:= ?CONST_PARTNER_LOOK_TYPE_CASH)
+			   andalso Lookfor#lookfor_data.look_flag_3 =:= ?true ->
+			   TempLookfor	= Lookfor#lookfor_data{look_flag_3 = ?false},
+			   TempList = random_pure(),
+			   FrontThree	= ?CONST_SYS_TRUE,
+			   {TempLookfor, TempList, FrontThree};
 		   ?true ->
 			   FrontThree	= ?CONST_SYS_FALSE,
 			   {Lookfor, FinalList1, FrontThree}
@@ -1600,6 +1601,15 @@ get_canlook_list(Player, Type) ->
 	FinalList3 		= lists:foldl(F, [], FinalList2), %% 实际可寻访列表(任务投放+破阵投放-已在队列)
 	Player2		= Player#player{lookfor = Lookfor2},
 	{Player2, FinalList3, FrontThree2}.
+
+
+random_yellow() ->
+	%% 曹洪，孙尚香，黄月英，夏侯惇，小乔，甘宁
+	misc_random:random_one([40001,22590,25585,40013,24593,40005]).
+
+random_pure() ->
+	misc_random:random_one([11312,23327,14324,25857,11879,22334,26888,24878,22891,24863,26319,
+		25870,26859,21838,22862,40019,13836]).
 
 %% 判断任务是否完成	
 is_task_finish(PrevTaskId, TaskId) ->
@@ -1699,7 +1709,7 @@ get_look_partner_id(Player, Type, IsUse, PartnerIdList) ->
 									 BaseLookfor#rec_partner_lookfor.cash_rate_3 + AddRate;
 								 ?false ->
 									 BaseLookfor#rec_partner_lookfor.cash_rate_3
-							 end;
+							 end
 					 end,
 				 NewRate = AccRate + Rate,
 				 NewAccOut = [{BaseLookfor#rec_partner_lookfor.bag_id, NewRate} | AccOut],
